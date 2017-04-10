@@ -10,7 +10,7 @@ alias .5='cd ../../../../../'
 
 alias ll='ls -l'
 alias la='ls -la'
-alias make='colormake'
+#alias make='colormake'
 alias diff='colordiff'
 #alias mount='mount |column -t'
 alias path='echo -e ${PATH//:/\\n}'
