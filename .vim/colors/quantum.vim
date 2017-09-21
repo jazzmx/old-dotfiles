@@ -1,60 +1,47 @@
-" Quantum - A Vim color scheme inspired by Material Design
+" Quantum - A 24-bit Material color scheme for Vim
 " Author: Brandon Siders
 " License: MIT
-" Version: 1.0-pre
 
 highlight clear
-syntax reset
+
+if exists('syntax_on')
+    syntax reset
+endif
 
 set background=dark
 let g:colors_name = 'quantum'
 
-if !exists('g:quantum_italics')
-    let g:quantum_italics = 0
-endif
+let g:quantum_italics = get(g:, 'quantum_italics', 0)
+let g:quantum_black = get(g:, 'quantum_black', 0)
 
-if !exists('g:quantum_black')
-    let g:quantum_black = 0
-endif
-
-if g:quantum_black
-    let s:gray1 = ['#212121', 234]
-    let s:gray2 = ['#272b2c', 236]
-    let s:gray3 = ['#394040', 238]
-    let s:gray4 = ['#5e696a', 242]
-    let s:gray5 = ['#aeb6b7', 248]
-else
-    let s:gray1 = ['#263238', 236]
-    let s:gray2 = ['#2c3e44', 238]
-    let s:gray3 = ['#415a63', 240]
-    let s:gray4 = ['#608592', 244]
-    let s:gray5 = ['#aabbc3', 250]
-endif
-
-let s:red       = ['#dd6880', 204]
-let s:green     = ['#83b879', 114]
-let s:yellow    = ['#ddb76f', 221]
-let s:blue      = ['#7aa5e6', 75]
-let s:purple    = ['#ad88e2', 141]
-let s:cyan      = ['#63c9d6', 44]
-let s:orange    = ['#da8c68', 209]
-let s:navy      = ['#6272cb', 61]
+" Color Palette
+let s:gray1     = g:quantum_black ? '#212121' : '#263238'
+let s:gray2     = g:quantum_black ? '#292929' : '#2c3a41'
+let s:gray3     = g:quantum_black ? '#474646' : '#425762'
+let s:gray4     = g:quantum_black ? '#6a6c6c' : '#658494'
+let s:gray5     = g:quantum_black ? '#b7bdc0' : '#aebbc5'
+let s:red       = '#dd7186'
+let s:green     = '#87bb7c'
+let s:yellow    = '#d5b875'
+let s:blue      = '#70ace5'
+let s:purple    = '#a48add'
+let s:cyan      = '#69c5ce'
+let s:orange    = '#d7956e'
+let s:indigo    = '#7681de'
 
 function! s:HL(group, fg, bg, attr)
     let l:attr = a:attr
-    if g:quantum_italics == 0 && l:attr ==? 'italic'
+    if !g:quantum_italics && l:attr ==# 'italic'
         let l:attr = 'none'
     endif
 
     if !empty(a:fg)
-        exec 'hi ' . a:group . ' guifg=' . a:fg[0] . ' ctermfg=' . a:fg[1]
+        exec 'hi ' . a:group . ' guifg=' . a:fg
     endif
-
     if !empty(a:bg)
-        exec 'hi ' . a:group . ' guibg=' . a:bg[0] . ' ctermbg=' . a:bg[1]
+        exec 'hi ' . a:group . ' guibg=' . a:bg
     endif
-
-    if l:attr != ''
+    if !empty(a:attr)
         exec 'hi ' . a:group . ' gui=' . l:attr . ' cterm=' . l:attr
     endif
 endfun
@@ -99,7 +86,7 @@ call s:HL('Title',                          s:green,    '',         'none')
 call s:HL('VertSplit',                      s:gray4,    s:gray1,    'none')
 call s:HL('Visual',                         s:gray5,    s:gray3,    '')
 call s:HL('WarningMsg',                     s:red,      '',         '')
-call s:HL('WildMenu',                       s:gray2,    s:cyan,       '')
+call s:HL('WildMenu',                       s:gray2,    s:cyan,	    '')
 
 " Standard Syntax
 call s:HL('Comment',                        s:gray4,    '',         'italic')
@@ -116,7 +103,7 @@ call s:HL('Define',                         s:purple,   '',         'none')
 call s:HL('Macro',                          s:purple,   '',         '')
 call s:HL('Type',                           s:yellow,   '',         'none')
 call s:HL('Structure',                      s:cyan,     '',         '')
-call s:HL('Special',                        s:navy,     '',         '')
+call s:HL('Special',                        s:indigo,   '',         '')
 call s:HL('Underlined',                     s:blue,     '',         'none')
 call s:HL('Error',                          s:red,      s:gray1,    'bold')
 call s:HL('Todo',                           s:orange,   s:gray1,    'bold')
@@ -132,8 +119,8 @@ call s:HL('cssFunctionName',                s:blue,     '',         '')
 call s:HL('cssIdentifier',                  s:blue,     '',         '')
 call s:HL('cssMediaType',                   s:orange,   '',         '')
 call s:HL('cssProp',                        s:gray5,    '',         '')
-call s:HL('cssSelectorOp',                  s:navy,     '',         '')
-call s:HL('cssSelectorOp2',                 s:navy,     '',         '')
+call s:HL('cssSelectorOp',                  s:indigo,   '',         '')
+call s:HL('cssSelectorOp2',                 s:indigo,   '',         '')
 
 " Git Commit
 call s:HL('gitcommitBranch',                s:blue,     '',         '')
@@ -203,17 +190,17 @@ call s:HL('markdownHeadingDelimiter',       s:green,    '',         '')
 call s:HL('markdownHeadingRule',            s:gray4,    '',         '')
 call s:HL('markdownId',                     s:purple,   '',         '')
 call s:HL('markdownItalic',                 s:blue,     '',         'italic')
-call s:HL('markdownListMarker',             s:navy,     '',         '')
-call s:HL('markdownOrderedListMarker',      s:navy,     '',         '')
+call s:HL('markdownListMarker',             s:indigo,   '',         '')
+call s:HL('markdownOrderedListMarker',      s:indigo,   '',         '')
 call s:HL('markdownRule',                   s:gray4,    '',         '')
 call s:HL('markdownUrl',                    s:purple,   '',         '')
 call s:HL('markdownUrlTitleDelimiter',      s:green,    '',         '')
 
 " Ruby
 call s:HL('rubyInterpolation',              s:cyan,     '',         '')
-call s:HL('rubyInterpolationDelimiter',     s:navy,     '',         '')
+call s:HL('rubyInterpolationDelimiter',     s:indigo,   '',         '')
 call s:HL('rubyRegexp',                     s:cyan,     '',         '')
-call s:HL('rubyRegexpDelimiter',            s:navy,     '',         '')
+call s:HL('rubyRegexpDelimiter',            s:indigo,   '',         '')
 call s:HL('rubyStringDelimiter',            s:green,    '',         '')
 
 " Sass
@@ -243,23 +230,22 @@ call s:HL('xmlTagName',                     s:blue,     '',         '')
 
 " Neovim terminal colors
 if has('nvim')
-    let g:terminal_color_0 = s:gray1[0]
-    let g:terminal_color_1 = '#dd6880'
-    let g:terminal_color_2 = '#83b879'
-    let g:terminal_color_3 = '#ddb76f'
-    let g:terminal_color_4 = '#7aa5e6'
-    let g:terminal_color_5 = '#ad88e2'
-    let g:terminal_color_6 = '#63c9d6'
-    let g:terminal_color_7 = s:gray5[0]
-    let g:terminal_color_8 = s:gray4[0]
-    let g:terminal_color_9 = '#f1879d'
-    let g:terminal_color_10 = '#89cf7c'
-    let g:terminal_color_11 = '#f1ce8e'
-    let g:terminal_color_12 = '#9dc1f6'
-    let g:terminal_color_13 = '#c8aaf3'
-    let g:terminal_color_14 = '#80e0ec'
-    let g:terminal_color_15 = '#c1cdd3'
+    let g:terminal_color_0 = s:gray1
+    let g:terminal_color_1 = s:red
+    let g:terminal_color_2 = s:green
+    let g:terminal_color_3 = s:yellow
+    let g:terminal_color_4 = s:blue
+    let g:terminal_color_5 = s:purple
+    let g:terminal_color_6 = s:cyan
+    let g:terminal_color_7 = s:gray5
+    let g:terminal_color_8 = s:gray3
+    let g:terminal_color_9 = s:red
+    let g:terminal_color_10 = s:green
+    let g:terminal_color_11 = s:yellow
+    let g:terminal_color_12 = s:blue
+    let g:terminal_color_13 = s:purple
+    let g:terminal_color_14 = s:cyan
+    let g:terminal_color_15 = s:gray4
     let g:terminal_color_background = g:terminal_color_0
     let g:terminal_color_foreground = g:terminal_color_7
 endif
-

@@ -1,12 +1,10 @@
 
-alias ..='cd ..'
 alias cd..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias .....='cd ../../../../../'
-alias .3='cd ../../../'
-alias .4='cd ../../../../'
-alias .5='cd ../../../../../'
+alias .1='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
 
 alias ll='ls -l'
 alias la='ls -la'
@@ -25,6 +23,10 @@ alias rm='rm --preserve-root'
 #alias mv='mv -i'
 #alias cp='cp -i'
 #alias ln='ln -i'
+
+alias tmuxnew='tmux new -s'
+alias tmuxat='tmux a -t'
+alias tmuxls='tmux ls'
 
 # Parenting changing perms on / #
 alias chown='chown --preserve-root'
