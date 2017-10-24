@@ -1,0 +1,26 @@
+#!/bin/sh
+
+
+CHEAT_DIR="$HOME/.cheat"
+
+[ "$1" = "-l" ] && {
+   ls -1 $CHEAT_DIR
+   exit 0
+}
+
+[ "$1" = "-e" ] && {
+   [ "$EDITOR" ] && {
+      [ ! -d "$CHEAT_DIR" ] && mkdir -p $CHEAT_DIR
+      $EDITOR $CHEAT_DIR/$2
+   } || {
+      echo "Please define EDITOR variable in your shell."
+   }
+} || {
+   [ -f "$CHEAT_DIR/$1" ] && {
+      less "$CHEAT_DIR/$1"
+      echo
+   } || {
+      echo "Could not find '$1' cheatsheet!"
+   }
+}
+

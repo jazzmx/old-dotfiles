@@ -1,0 +1,113 @@
+#!/bin/sh -x
+
+
+buildroot() {
+   local version
+   [ -z "$1" ] && version="2014.11" || version="$1"
+   case "$version" in
+      "2014.11") export BUILDROOT_DIR="${HOME}/work/bin/buildroot-2014.11" ;;
+      "2015.11") export BUILDROOT_DIR="${HOME}/work/bin/buildroot-2015.11" ;;
+   esac
+   export BR_DOWNLOAD_DIR="${HOME}/work/bin/pkgsrc"
+   export JLEVEL=4
+}
+
+setenv() {
+   if [ -f $1/setenv ]; then
+      source $1/setenv
+   else
+      echo "Cannot find '$1/setenv'!"
+   fi
+}
+
+proj=$1
+[ -z "$proj" ] && echo "Must specify project..." && return 1
+
+case $proj in
+
+   map)
+      source /opt/arago/linux-devkit/environment-setup
+      export PATH="/opt/arago/linux-devkit/bin/:$PATH"
+      export CXX=${CPP}
+      export CFLAGS="-I${SYSROOT_DIR}/usr/include -I${SYSROOT_DIR}/usr/local/include"
+      export CXXFLAGS="-I${SYSROOT_DIR}/usr/include -I${SYSROOT_DIR}/usr/local/include"
+      export PS1="\[\e[32;01m\][MAP-3901_arago]\[:\e[36;01m\]\w\n-> \[\e[00m\]"
+      ;;
+
+   map-oe)
+      export PATH="/home/mlangloi/work/projects/map-3901/map-3901/tools/sdcard:/opt/arago/linux-devkit/bin:$PATH"
+      cd ${HOME}/work/projects/map-3901/oe/build
+      source conf/setenv map-3901
+      ;;
+
+   cpu*|cpu3*)
+      buildroot 2014.11
+      if grep dds <<< $proj; then
+         export BUILDROOT_CONF_NAME=cpueth3-dds_defconfig
+      fi
+      #export FPGA_DIR=/media/ca-ops-data/projets/3034_Densite3+_CPU-ETH3/FPGA/autobuild/halo
+      cd ${HOME}/work/projects/cpu-eth3
+      setenv env
+      ;;
+
+   stargate)
+      buildroot 2014.11
+      export FPGA_DIR=${HOME}/work/projects/stargate-all/fpga
+      cd ${HOME}/work/projects/stargate-all
+      setenv env
+      ;;
+
+   stargate-gcc5)
+      buildroot 2015.11
+      export FPGA_DIR=${HOME}/work/projects/stargate-all/fpga
+      cd ${HOME}/work/projects/stargate-gcc5
+      setenv env
+      ;;
+
+   ipfrmk)
+      buildroot 2014.11
+      cd ${HOME}/work/projects/ipfrmk
+      setenv repos
+      ;;
+
+   ifm)
+      buildroot 2014.11
+      cd ${HOME}/work/projects/ifm-2t
+      setenv repos
+      ;;
+
+   uhd)
+      buildroot 2014.11
+      cd ${HOME}/work/projects/uhd-3901
+      setenv env
+      ;;
+
+   xio)
+      buildroot 2014.11
+      #export FPGA=/media/ca-ops-data/projets/6106_XIO-49XX/FPGA
+      cd ${HOME}/work/projects/xio-4901
+      setenv repos
+      ;;
+
+   xip)
+      buildroot 2015.11
+      cd ${HOME}/work/projects/xip-3901
+      setenv env
+      ;;
+
+   sme)
+      cd ${HOME}/work/projects/sme-1901
+      ;;
+
+   *)
+      brVersion=$2
+      buildroot ${brVersion:=2014.11}
+      [ -d "$proj" ] && cd "$proj"
+      [ -d ./env ] && { setenv env; return 0; }
+      [ -d ./repos ] && { setenv repos; return 0; }
+      echo "Unknown project: '$proj'"
+      return 1
+      ;;
+
+esac
+
