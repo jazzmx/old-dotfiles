@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/bash
 
 
 buildroot() {
@@ -20,6 +20,11 @@ setenv() {
    fi
 }
 
+setPrompt() {
+   export PROMPT_ID="$1"
+   export BR_SH_PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w] \[\e[1;33m\]$(__git_ps1 "(%s)")\n\[\e[1;31m\][$PROMPT_ID] \$\[\e[0m\] '
+}
+
 proj=$1
 [ -z "$proj" ] && echo "Must specify project..." && return 1
 
@@ -31,16 +36,18 @@ case $proj in
       export CXX=${CPP}
       export CFLAGS="-I${SYSROOT_DIR}/usr/include -I${SYSROOT_DIR}/usr/local/include"
       export CXXFLAGS="-I${SYSROOT_DIR}/usr/include -I${SYSROOT_DIR}/usr/local/include"
-      export PS1="\[\e[32;01m\][MAP-3901_arago]\[:\e[36;01m\]\w\n-> \[\e[00m\]"
+      setPrompt map3901
       ;;
 
    map-oe)
       export PATH="/home/mlangloi/work/projects/map-3901/map-3901/tools/sdcard:/opt/arago/linux-devkit/bin:$PATH"
       cd ${HOME}/work/projects/map-3901/oe/build
       source conf/setenv map-3901
+      setPrompt map3901-oe
       ;;
 
    cpu*|cpu3*)
+      setPrompt "BR:cpueth3"
       buildroot 2014.11
       if grep dds <<< $proj; then
          export BUILDROOT_CONF_NAME=cpueth3-dds_defconfig
@@ -51,6 +58,7 @@ case $proj in
       ;;
 
    stargate)
+      setPrompt "BR:stargate"
       buildroot 2014.11
       export FPGA_DIR=${HOME}/work/projects/stargate-all/fpga
       cd ${HOME}/work/projects/stargate-all
@@ -58,6 +66,7 @@ case $proj in
       ;;
 
    stargate-gcc5)
+      setPrompt "BR:stargate-gcc5"
       buildroot 2015.11
       export FPGA_DIR=${HOME}/work/projects/stargate-all/fpga
       cd ${HOME}/work/projects/stargate-gcc5
@@ -65,24 +74,28 @@ case $proj in
       ;;
 
    ipfrmk)
+      setPrompt "BR:ipfrmk"
       buildroot 2014.11
       cd ${HOME}/work/projects/ipfrmk
       setenv repos
       ;;
 
    ifm)
+      setPrompt "BR:ifm"
       buildroot 2014.11
       cd ${HOME}/work/projects/ifm-2t
       setenv repos
       ;;
 
    uhd)
+      setPrompt "BR:uhd3901"
       buildroot 2014.11
       cd ${HOME}/work/projects/uhd-3901
       setenv env
       ;;
 
    xio)
+      setPrompt "BR:xio4901"
       buildroot 2014.11
       #export FPGA=/media/ca-ops-data/projets/6106_XIO-49XX/FPGA
       cd ${HOME}/work/projects/xio-4901
@@ -90,12 +103,14 @@ case $proj in
       ;;
 
    xip)
+      setPrompt "BR:xip3901"
       buildroot 2015.11
       cd ${HOME}/work/projects/xip-3901
       setenv env
       ;;
 
    sme)
+      setPrompt "BR:sme1901"
       cd ${HOME}/work/projects/sme-1901
       ;;
 
@@ -110,4 +125,5 @@ case $proj in
       ;;
 
 esac
+
 

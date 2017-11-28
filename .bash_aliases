@@ -1,4 +1,5 @@
 
+alias cd-='cd -'
 alias cd..='cd ..'
 alias .1='cd ..'
 alias .2='cd ../..'
@@ -44,9 +45,7 @@ alias du='du -ch'
 alias top='htop'
 
 function vix {
-   touch $1
-   chmod 751 $1
-   vi $1
+   touch $1; chmod 751 $1; vi $1
 }
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
