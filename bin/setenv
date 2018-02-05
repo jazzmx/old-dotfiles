@@ -8,7 +8,11 @@ buildroot() {
       "2014.11") export BUILDROOT_DIR="${HOME}/work/bin/buildroot-2014.11" ;;
       "2015.11") export BUILDROOT_DIR="${HOME}/work/bin/buildroot-2015.11" ;;
    esac
-   export BR_DOWNLOAD_DIR="${HOME}/work/bin/pkgsrc"
+   [ "$(find /media/ca-rd-ifw/pkgsrc -type f)" ] && {
+      export BR_DOWNLOAD_DIR="/media/ca-rd-ifw/pkgsrc"
+   } || {
+      export BR_DOWNLOAD_DIR="${HOME}/work/bin/pkgsrc"
+   }
    export JLEVEL=4
 }
 
@@ -22,7 +26,8 @@ setenv() {
 
 setPrompt() {
    export PROMPT_ID="$1"
-   export BR_SH_PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w] \[\e[1;33m\]$(__git_ps1 "(%s)")\n\[\e[1;31m\][$PROMPT_ID] \$\[\e[0m\] '
+   [ "$BASH" ] && export BR_PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w] \[\e[1;33m\]$(__git_ps1 "(%s)")\n\[\e[1;31m\][$PROMPT_ID] \$\[\e[0m\] '
+   [ "$ZSH" ] && export BR_PS1=$'╭─%F{green}%n%f%F %B%F{blue}[%~]%f $(git_prompt_info)%b\n╰─%F{red}[$PROMPT_ID]%f \$ '
 }
 
 proj=$1
