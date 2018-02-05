@@ -17,6 +17,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
+Plug 'jacoborus/tender.vim'
+Plug 'NLKNguyen/papercolor-theme'
 "Plug 'vim-airline/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 "
@@ -32,7 +34,8 @@ Plug 'vim-scripts/Smart-Tabs'
 Plug 'vim-scripts/taglist.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
-Plug 'Shougo/vimfiler'
+"Plug 'Shougo/vimfiler'
+Plug 'vifm/neovim-vifm'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-surround'
 Plug 'sjl/gundo.vim'
@@ -55,9 +58,9 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 if has('nvim')
    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-if has('patch-7.4.1778')
-   set guicolors
-endif
+"if has('patch-7.4.1778')
+"   set guicolors
+"endif
 if !has('gui')
    " ^[ is a single character: Ctrl+V,<ESC>
    let &t_8f = "[38;2;%lu;%lu;%lum"
@@ -208,8 +211,6 @@ nnoremap <leader>i :set list!<cr>
 " Better find and replace
 map <leader>fr :%s///g<left><left><left>
 
-" Grep word under cursor with F3
-map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 " Switch header / source .c*,.h*
 map <F5> :call CurtineIncSw()<CR>
 " Call make
@@ -217,36 +218,25 @@ map <F6> :make!<CR>
 
 " Grep word under cursor with K
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
-
-"
-" neovim-fuzzy (Fzy)
-"
-"if exists("g:loaded_fuzzy")
-"function! FzyCommand(choice_command, vim_command)
-"  try
-"    let output = system(a:choice_command . " | fzy ")
-"  catch /Vim:Interrupt/
-"    " Swallow errors from ^C, allow redraw! below
-"  endtry
-"  redraw!
-"  if v:shell_error == 0 && !empty(output)
-"    exec a:vim_command . ' ' . output
-"  endif
-"endfunction
-"nnoremap <leader>v :call FzyCommand("find -type f", ":vs")<cr>
-"nnoremap <C-p> :FuzzyOpen<CR>
-"nnoremap <C-g> :FuzzyGrep<CR>
-"endif
+" Grep word under cursor with F3
+map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
 
 if executable('rg')
   " Use rg over grep
-  set grepprg=rg\ --vimgrep
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   " ag is fast enough that CtrlP doesn't need to cache
   "let g:ctrlp_use_caching = 0
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview('up:60%')
+    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \   <bang>0)
+"   nnoremap <C-p>a :Rg
 endif
 
 
@@ -304,7 +294,7 @@ let g:tmuxline_preset = 'nightly_fox'
 "
 " VimFiler
 "
-"let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_as_default_explorer = 1
 
 "
 " YouCompleteMe

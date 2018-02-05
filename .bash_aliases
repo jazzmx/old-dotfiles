@@ -25,9 +25,9 @@ alias rm='rm --preserve-root'
 #alias cp='cp -i'
 #alias ln='ln -i'
 
-alias tmuxnew='tmux new -s'
-alias tmuxat='tmux a -t'
-alias tmuxls='tmux ls'
+alias tmn='tmux new -s'
+alias tma='tmux a -t'
+alias tm='tmux'
 
 # Parenting changing perms on / #
 alias chown='chown --preserve-root'
