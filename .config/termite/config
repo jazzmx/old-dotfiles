@@ -16,7 +16,8 @@
     dynamic_title = true
     urgent_on_bell = true
     clickable_url = true
-    font = Liberation Mono for Powerline 10
+    #font = Liberation Mono for Powerline 16
+    font = Inconsolata 18
     scrollback_lines = 10000
     search_wrap = true
     icon_name = terminal
