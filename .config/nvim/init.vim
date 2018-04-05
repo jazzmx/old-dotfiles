@@ -292,9 +292,9 @@ let g:tmuxline_theme = 'iceberg'
 let g:tmuxline_preset = 'nightly_fox'
 
 "
-" VimFiler
+" Vim Prosession
 "
-let g:vimfiler_as_default_explorer = 1
+let g:prosession_dir = '~/.config/nvim/session/'
 
 "
 " YouCompleteMe

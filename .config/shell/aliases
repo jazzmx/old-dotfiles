@@ -7,9 +7,10 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
-alias ll='ls -l'
-alias la='ls -la'
-#alias make='colormake'
+alias ls='ls --color=auto'
+alias ll='ls -lah'
+alias la='ls -A'
+alias make='colormake'
 alias diff='colordiff'
 #alias mount='mount |column -t'
 alias path='echo -e ${PATH//:/\\n}'
@@ -25,24 +26,29 @@ alias rm='rm --preserve-root'
 #alias cp='cp -i'
 #alias ln='ln -i'
 
+
 alias tmn='tmux new -s'
 alias tma='tmux a -t'
 alias tm='tmux'
+
+alias wget='wget -c'
 
 # Parenting changing perms on / #
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
+# octal+text permissions for files
+alias perms="stat -c '%A %a %n'"
 
-alias shutdown='sudo /sbin/shutdown'
-alias reboot='sudo /sbin/reboot'
-alias halt='sudo /sbin/halt'
-
-alias wget='wget -c'
 
 alias df='df -H'
 alias du='du -ch'
 alias top='htop'
+
+alias shutdown='sudo /sbin/shutdown'
+alias reboot='sudo /sbin/reboot'
+alias halt='sudo /sbin/halt'
+alias sudo='sudo '
 
 function vix {
    touch $1; chmod 751 $1; vi $1
@@ -50,3 +56,10 @@ function vix {
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+#
+# PACKAGE MANAGERS
+#
+#ArchLinux
+[ "$(which pacman)" ] && {
+alias pacman='sudo pacman'
+}
