@@ -1,1 +1,4 @@
-.dotfiles
+*.o
+*.swp
+*.swo
+termite

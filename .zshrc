@@ -97,5 +97,12 @@ export LESS='-F -X $LESS'
 
 autoload vix setenv
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+source ~/.bash_aliases
+
+# Make CapsLock a Ctrl key
+setxkbmap -option ctrl:nocaps
+# Make Ctrl keys an escape key when press alone
+if [ -z "$(pgrep xcape)" ]; then
+   [ "$(which xcape)" ] && xcape -e 'Control_L=Escape'
+fi
 

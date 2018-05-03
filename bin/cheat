@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-CHEAT_DIR="$HOME/.cheat"
+CHEAT_DIR="$HOME/.config/cheat"
 
 [ "$1" = "-l" ] && {
    ls -1 $CHEAT_DIR

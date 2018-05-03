@@ -12,6 +12,7 @@ alias la='ls -la'
 #alias make='colormake'
 alias diff='colordiff'
 #alias mount='mount |column -t'
+#alias path='echo $PATH | tr -s ":" "\n"'
 alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
@@ -19,6 +20,7 @@ alias nowdate='date +"%d-%m-%Y"'
 
 # do not delete / or prompt if deleting more than 3 files at a time #
 alias rm='rm --preserve-root'
+alias mkdir='mkdir -p'
 
 # confirmation #
 #alias mv='mv -i'
@@ -50,3 +52,5 @@ function vix {
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+alias xip='cd ~/work/projects/xip3901uc'
+alias cpu3='cd ~/work/projects/cpueth3'
