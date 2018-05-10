@@ -4,7 +4,7 @@ export EDITOR=vi
 export PAGER='/usr/bin/less'
 export LESS='-isrM -F -X'
 
-PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w]\n\[\e[1;33m\]$(__git_ps1 "(%s)") \$\[\e[0m\] '
+PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w]\n\[\e[1;33m\]$(__git_ps1 "(%s)")\$\[\e[0m\] '
 
 
 # Make CapsLock a Ctrl key
