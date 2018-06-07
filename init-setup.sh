@@ -80,3 +80,11 @@ pushd fzy
 make && sudo make prefix=/usr/local install
 popd
 
+# rtags
+git clone --recursive https://github.com/Andersbakken/rtags.git
+pushd rtags
+mkdir build && cd build
+cmake ..
+make && sudo make prefix=/usr/local install
+popd
+

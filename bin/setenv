@@ -66,16 +66,8 @@ case $proj in
    stargate)
       setPrompt "BR:stargate"
       buildroot 2014.11
-      export FPGA_DIR=${HOME}/work/projects/stargate-all/fpga
-      cd ${HOME}/work/projects/stargate-all
-      setenv env
-      ;;
-
-   stargate-gcc5)
-      setPrompt "BR:stargate-gcc5"
-      buildroot 2015.11
-      export FPGA_DIR=${HOME}/work/projects/stargate-all/fpga
-      cd ${HOME}/work/projects/stargate-gcc5
+      export FPGA_DIR=${HOME}/work/projects/stargate/fpga
+      cd ${HOME}/work/projects/stargate
       setenv env
       ;;
 
@@ -116,27 +108,11 @@ case $proj in
       setenv repos
       ;;
 
-   xip|uc|dc)
+   xip)
       setPrompt "BR:xip3901uc"
       buildroot 2015.11
-      cd ${HOME}/work/projects/xip3901uc
-      export BUILDROOT_TARGET=xip3901uc
-      setenv env
-      ;;
-
-   dc)
-      setPrompt "BR:xip3901dc"
-      buildroot 2015.11
-      cd ${HOME}/work/projects/xip3901dc
-      export BUILDROOT_TARGET=xip3901dc
-      setenv env
-      ;;
-
-   fs)
-      setPrompt "BR:xip3901fs"
-      buildroot 2015.11
-      cd ${HOME}/work/projects/xip3901fs
-      export BUILDROOT_TARGET=xip3901fs
+      cd ${HOME}/work/projects/xip3901
+      export BUILDROOT_TARGET=xip3901
       setenv env
       ;;
 

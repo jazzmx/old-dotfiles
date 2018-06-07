@@ -55,8 +55,8 @@ Plug 'tpope/vim-vinegar'
 "
 " C & C++ specific plugins
 Plug 'Shougo/deoplete.nvim'
+Plug 'rzaluska/deoplete-rtags'
 "Plug 'zchee/deoplete-clang'
-"Plug 'Valloric/YouCompleteMe'
 Plug 'ericcurtin/CurtineIncSw.vim'
 
 call plug#end()
