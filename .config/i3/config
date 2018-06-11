@@ -221,13 +221,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 
 # Define scratchpad
-for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 625 400
-for_window [instance="dropdown"] border pixel 5
-for_window [instance="dropdown"] move scratchpad
-# Show scratchpad
-#bindsym $mod+ [instance="dropdown"] scratchpad show
-bindsym $mod+s [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+for_window [instance="dropdown"] floating enable, resize set 800 400, border pixel 5, move scratchpad
+bindsym $mod+s [instance="dropdown"] scratchpad show, move position center
 
 # Assign apps to specific workspaces
 assign [class="google-chrome-stable"] $ws5
@@ -235,7 +230,7 @@ assign [class="spotify"] $ws6
 
 exec_always --no-startup-id numlockx on
 #exec_always polybar bar
-exec --no-startup-id $term -n dropdown
+exec --no-startup-id $term --name dropdown
 exec --no-startup-id $kbdlayout us
 exec --no-startup-id udiskie --tray
 exec --no-startup-id synergy
