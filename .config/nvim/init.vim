@@ -48,9 +48,9 @@ Plug 'tpope/vim-Fugitive'
 Plug 'airblade/vim-gitgutter'
 "
 " Directory browsing
-Plug 'tpope/vim-vinegar'
-"Plug 'scrooloose/nerdtree'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'tpope/vim-vinegar'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 "
 " C & C++ specific plugins
