@@ -232,7 +232,7 @@ exec_always --no-startup-id numlockx on
 #exec_always polybar bar
 exec --no-startup-id $term --name dropdown
 exec --no-startup-id $kbdlayout us
-exec --no-startup-id udiskie --tray
+exec --no-startup-id udiskie -2 --tray
 exec --no-startup-id synergy
 exec --no-startup-id nm-applet
 exec xfce4-notes
