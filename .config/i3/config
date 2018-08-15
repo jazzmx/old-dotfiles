@@ -93,15 +93,15 @@ bindsym $mod+Shift+Down  move down
 bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 # Resize
-bindsym $mod+$alt+h resize shrink width 10 px or 10 ppt
-bindsym $mod+$alt+j resize grow height 10 px or 10 ppt
-bindsym $mod+$alt+k resize shrink height 10 px or 10 ppt
-bindsym $mod+$alt+l resize grow width 10 px or 10 ppt
+bindsym $mod+$alt+h resize shrink width  5 px or 5 ppt
+bindsym $mod+$alt+j resize grow   height 5 px or 5 ppt
+bindsym $mod+$alt+k resize shrink height 5 px or 5 ppt
+bindsym $mod+$alt+l resize grow   width  5 px or 5 ppt
 # alternatively, arrow keys
-bindsym $mod+$alt+Left  resize shrink width 10 px or 10 ppt
-bindsym $mod+$alt+Down  resize grow height 10 px or 10 ppt
-bindsym $mod+$alt+Up    resize shrink height 10 px or 10 ppt
-bindsym $mod+$alt+Right resize grow width 10 px or 10 ppt
+bindsym $mod+$alt+Left  resize shrink width  5 px or 5 ppt
+bindsym $mod+$alt+Down  resize grow   height 5 px or 5 ppt
+bindsym $mod+$alt+Up    resize shrink height 5 px or 5 ppt
+bindsym $mod+$alt+Right resize grow   width  5 px or 5 ppt
 # Change gaps
 bindsym $mod+i       gaps inner current plus 1
 bindsym $mod+Shift+i gaps inner current minus 1
@@ -184,7 +184,7 @@ bindsym $mod+Shift+c   reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r   restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e   exec $logout
+bindsym $mod+Shift+q   exec $logout
 # kill focused window
 bindsym $mod+q         kill
 # start a terminal
@@ -211,6 +211,11 @@ bindsym XF86AudioNext  exec playerctl next
 bindsym XF86AudioMute  exec --no-startup-id pactl set-sink-mute 0 toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+# Screenshots
+bindsym --release Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
+bindsym --release $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%s).png
+bindsym --release $ctrl+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%s).png
+
 
 # Define scratchpad
 for_window [instance="dropdown"] floating enable, resize set 800 400, border pixel 5, move scratchpad
