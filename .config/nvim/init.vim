@@ -212,12 +212,6 @@ nmap <leader>sh   :leftabove  vnew<CR>
 nmap <leader>sj   :rightbelow new<CR>
 nmap <leader>sk   :leftabove  new<CR>
 nmap <leader>sl   :rightbelow vnew<CR>
-" switch to buffer with buffer list opened
-"nnoremap <leader>b :ls<cr>:b
-" open buffer on bottom split
-"nnoremap <leader>sbb :ls<cr>:sb
-" open buffer on right split
-"nnoremap <leader>sbr :ls<cr>:vert sb
 
 " Move lines around easily
 nnoremap <A-j> :m .+1<CR>==
