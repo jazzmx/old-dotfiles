@@ -1,26 +1,24 @@
 #!/bin/sh
 
-
 CHEAT_DIR="$HOME/.config/cheat"
+USAGE="
+ cheat          List available cheats
+ cheat app      Print cheat for app
+ cheat -e app   Edit cheat for app using EDITOR variable
+"
 
-[ "$1" = "-l" ] && {
-   ls -1 $CHEAT_DIR
-   exit 0
-}
-
-[ "$1" = "-e" ] && {
-   [ "$EDITOR" ] && {
+case $1 in
+   -h|--help)  echo "$USAGE" ; exit;;
+   "") ls $CHEAT_DIR ; exit;;
+   -e)
+      [ "$EDITOR" ] || { echo "Please define EDITOR variable in your shell."; exit 1; }
       [ ! -d "$CHEAT_DIR" ] && mkdir -p $CHEAT_DIR
       $EDITOR $CHEAT_DIR/$2
-   } || {
-      echo "Please define EDITOR variable in your shell."
-   }
-} || {
-   [ -f "$CHEAT_DIR/$1" ] && {
+      echo "$CHEAT_DIR/$2"
+      ;;
+   *)
+      [ ! -f "$CHEAT_DIR/$1" ] || { echo "Could not find '$1' cheatsheet!"; exit 1; }
       less "$CHEAT_DIR/$1"
       echo
-   } || {
-      echo "Could not find '$1' cheatsheet!"
-   }
-}
+esac
 
