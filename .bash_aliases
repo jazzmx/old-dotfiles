@@ -7,12 +7,12 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
+alias ls='ls --color=auto'
 alias ll='ls -alhF'
 alias la='ls -lA'
 #alias make='colormake'
 alias diff='colordiff'
 #alias mount='mount |column -t'
-#alias path='echo $PATH | tr -s ":" "\n"'
 alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
@@ -27,24 +27,29 @@ alias mkdir='mkdir -p'
 #alias cp='cp -i'
 #alias ln='ln -i'
 
+# Tmux
 alias tmn='tmux new -s'
 alias tma='tmux a -t'
 alias tm='tmux'
+
+alias wget='wget -c'
 
 # Parenting changing perms on / #
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
+# octal+text permissions for files
+alias perms="stat -c '%A %a %n'"
 
 alias shutdown='sudo /sbin/shutdown'
 alias reboot='sudo /sbin/reboot'
 alias halt='sudo /sbin/halt'
 
-alias wget='wget -c'
-
 alias df='df -H'
 alias du='du -ch'
 alias top='htop'
+
+alias sudo='sudo '
 
 function vix {
    touch $1; chmod 751 $1; vi $1

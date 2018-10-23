@@ -177,8 +177,8 @@ bindsym $mod+$alt+Tab move workspace to output right
 set $term i3-sensible-terminal
 set $browser google-chrome
 set $applauncher rofi -show run
-set $kbdlayout ~/.local/bin/kbd-layout.sh
-set $logout ~/.local/bin/logout-menu.sh
+set $kbdlayout ~/bin/kbdlayout
+set $logout ~/bin/session
 # reload the configuration file
 bindsym $mod+Shift+c   reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -214,11 +214,10 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 # Screenshots
 bindsym --release Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
 bindsym --release $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%s).png
-bindsym --release $ctrl+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%s).png
-
+bindsym --release Control+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%s).png
 
 # Define scratchpad
-for_window [instance="dropdown"] floating enable, resize set 800 400, border pixel 5, move scratchpad
+for_window [instance="dropdown"] floating enable, resize set 1200 600, border pixel 5, move scratchpad
 bindsym $mod+s [instance="dropdown"] scratchpad show, move position center
 
 # Assign apps to specific workspaces
@@ -226,7 +225,6 @@ assign [class="google-chrome-stable"] $ws5
 assign [class="spotify"] $ws6
 
 exec_always --no-startup-id numlockx on
-#exec_always polybar bar
 exec --no-startup-id $term --name dropdown
 exec --no-startup-id $kbdlayout us
 exec --no-startup-id udiskie -2 --tray

@@ -8,7 +8,7 @@ USAGE="
 "
 
 case $1 in
-   -h|--help)  echo "$USAGE" ; exit;;
+   -h|--help) echo "$USAGE" ; exit;;
    "") ls $CHEAT_DIR ; exit;;
    -e)
       [ "$EDITOR" ] || { echo "Please define EDITOR variable in your shell."; exit 1; }
@@ -17,7 +17,7 @@ case $1 in
       echo "$CHEAT_DIR/$2"
       ;;
    *)
-      [ ! -f "$CHEAT_DIR/$1" ] || { echo "Could not find '$1' cheatsheet!"; exit 1; }
+      [ -f "$CHEAT_DIR/$1" ] || { echo "Could not find '$1' cheatsheet!"; exit 1; }
       less "$CHEAT_DIR/$1"
       echo
 esac

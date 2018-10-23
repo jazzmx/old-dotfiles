@@ -108,12 +108,19 @@ case $proj in
       setenv repos
       ;;
 
-   xip)
-      setPrompt "BR:xip3901uc"
-      buildroot 2015.11
-      cd ${HOME}/work/projects/xip3901
-      export BUILDROOT_TARGET=xip3901
-      setenv env
+   xipuc)
+      cd ${HOME}/work/projects/xip3901uc
+      source env/setenv
+      ;;
+
+   xipdc)
+      cd ${HOME}/work/projects/xip3901dc
+      source env/setenv
+      ;;
+
+   xipfs)
+      cd ${HOME}/work/projects/xip3901fs
+      source env/setenv
       ;;
 
    sme)

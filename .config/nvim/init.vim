@@ -153,8 +153,8 @@ set smartindent
 "set preserveindent
 "set cindent
 set cinoptions+=g0
-set complete=.,b,u,]
-set completeopt=menu,preview
+"set complete=.,b,u,]
+set completeopt=menuone,preview
 set wildmode=longest,list:longest
 "
 
@@ -231,7 +231,8 @@ map <leader>fr :%s///g<left><left><left>
 " Switch header / source .c*,.h*
 map <F5> :call CurtineIncSw()<CR>
 " Call make
-map <F6> :make!<CR>
+map <F9> :make!<CR>
+nnoremap <F6> :%s/<C-r><C-w>/
 
 " Grep word under cursor with K
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -295,7 +296,7 @@ if executable('rg')
     \   <bang>0 ? fzf#vim#with_preview('up:60%')
     \           : fzf#vim#with_preview('right:50%:hidden', '?'),
     \   <bang>0)
-"   nnoremap <C-p>a :Rg
+  nnoremap <C-g> :Rg<Cr>
 endif
 " }}}
 

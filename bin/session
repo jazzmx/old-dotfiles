@@ -1,0 +1,22 @@
+#!/bin/bash
+
+CHOICES=(
+logout
+reboot
+shutdown
+suspend
+hibernate
+)
+
+options="-i -width -22 -hide-scrollbar -bw 5"
+choice=$( (IFS=$'\n'; echo "${CHOICES[*]}") | rofi -dmenu $options -lines ${#CHOICES[@]})
+
+
+case $choice in
+   logout) i3-msg exit ;;
+   reboot) systemctl reboot ;;
+   shutdown) systemctl poweroff ;;
+   suspend) systemctl suspend ;;
+   hibernate) systemctl hibernate ;;
+esac
+
