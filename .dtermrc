@@ -1,0 +1,7 @@
+esc=p
+115200 8 n 1
+
+com1: ttyS0
+usb0: ttyUSB0
+usb1: ttyUSB1
+usb2: ttyUSB2
