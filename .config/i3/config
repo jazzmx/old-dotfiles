@@ -129,26 +129,37 @@ bindsym $mod+Shift+space focus mode_toggle
 
 # WORKSPACES ==================================================================
 #
-set $out1 DisplayPort-0
-set $out2 DVI-0
-set $ws1 "1 "
-set $ws2 "2 "
-set $ws3 "3 "
-set $ws4 "4 "
-set $ws5 "5 "
-set $ws6 "6 "
-set $ws7 "7 "
-set $ws8 "8 "
+set $out1    DisplayPort-0
+set $out2    DVI-0
+set $wsWeb   "Web"
+set $wsMail  "Mail"
+set $wsMusic "Music"
+set $ws1     "Dev1"
+set $ws2     "Dev2"
+set $ws3     "Dev3"
+set $ws4     "Dev4"
+set $ws5     "Dev5"
+set $ws6     "Dev6"
+set $ws7     "Dev7"
+set $ws8     "Dev8"
+set $ws9     "Dev9"
 # assign workspaces to output
-workspace $ws1 output $out1
-workspace $ws2 output $out1
-workspace $ws3 output $out1
-workspace $ws4 output $out1
-workspace $ws5 output $out2
-workspace $ws6 output $out2
-workspace $ws7 output $out2
-workspace $ws8 output $out2
+workspace $wsWeb   output $out2
+workspace $wsMail  output $out1
+workspace $wsMusic output $out2
+#workspace $ws1 output $out1
+#workspace $ws2 output $out1
+#workspace $ws3 output $out1
+#workspace $ws4 output $out1
+#workspace $ws5 output $out1
+#workspace $ws6 output $out2
+#workspace $ws7 output $out2
+#workspace $ws8 output $out2
+#workspace $ws9 output $out2
 # switch workspace
+bindsym $mod+F1 workspace $wsWeb
+bindsym $mod+F2 workspace $wsMail
+bindsym $mod+F3 workspace $wsMusic
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -157,6 +168,7 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -166,6 +178,7 @@ bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
 # switch / move workspace to output
 bindsym $mod+Tab workspace next_on_output
 bindsym $mod+Shift+Tab workspace prev_on_output
@@ -176,9 +189,8 @@ bindsym $mod+$alt+Tab move workspace to output right
 # Default applications
 set $term i3-sensible-terminal
 set $browser google-chrome
-set $applauncher rofi -show run
-set $kbdlayout ~/bin/kbdlayout
 set $logout ~/bin/session
+set $kbdlayout ~/bin/kbdlayout
 # reload the configuration file
 bindsym $mod+Shift+c   reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -189,14 +201,16 @@ bindsym $mod+Shift+q   exec $logout
 bindsym $mod+q         kill
 # start a terminal
 bindsym $mod+Return    exec $term
-# start an application (program launcher)
-bindsym $mod+a         exec $applauncher
 # start a browser
 bindsym $mod+b         exec $browser
 # lock screen
 bindsym $mod+Escape    exec --no-startup-id i3lock -e -f -c 000000
+# application menu (program launcher)
+bindsym $mod+a         exec "rofi -modi run,drun,ssh -show run"
+# application menu (program launcher)
+bindsym $mod+Shift+a   exec "rofi -modi run,drun,ssh -show drun"
 # Alt-tab for opened windows menu
-bindsym $alt+Tab       exec rofi -show window -show-icons
+bindsym $alt+Tab       exec rofi -modi window -show window -show-icons
 # Switch keyboard layout
 bindsym $mod+z         exec --no-startup-id $kbdlayout
 # Media keys
@@ -204,7 +218,7 @@ bindsym XF86Explorer   exec caja
 bindsym XF86HomePage   exec $browser
 bindsym XF86Calculator exec gnome-calculator
 bindsym XF86Tools      exec spotify
-bindsym XF86AudioPlay  exec playerctl play
+bindsym XF86AudioPlay  exec playerctl play-pause
 bindsym XF86AudioStop  exec playerctl stop
 bindsym XF86AudioPrev  exec playerctl previous
 bindsym XF86AudioNext  exec playerctl next
@@ -218,11 +232,14 @@ bindsym --release Control+Print exec --no-startup-id maim -s ~/Pictures/Screensh
 
 # Define scratchpad
 for_window [instance="dropdown"] floating enable, resize set 1200 600, border pixel 5, move scratchpad
-bindsym $mod+s [instance="dropdown"] scratchpad show, move position center
+bindsym $mod+s [instance="dropdown"] scratchpad show, move position center 
+#exec $term --name dropdown
 
 # Assign apps to specific workspaces
-assign [class="google-chrome-stable"] $ws5
-assign [class="spotify"] $ws6
+assign [class="pidgin"] $wsMail
+assign [class="evolution"] $wsMail
+assign [class="google-chrome-stable"] $wsWeb
+for_window [class="Spotify"] move to workspace $wsMusic
 
 exec_always --no-startup-id numlockx on
 exec --no-startup-id $term --name dropdown
