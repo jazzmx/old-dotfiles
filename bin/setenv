@@ -5,13 +5,13 @@ buildroot() {
    local version
    [ -z "$1" ] && version="2014.11" || version="$1"
    case "$version" in
-      "2014.11") export BUILDROOT_DIR="${HOME}/work/bin/buildroot-2014.11" ;;
-      "2015.11") export BUILDROOT_DIR="${HOME}/work/bin/buildroot-2015.11" ;;
+      "2014.11") export BUILDROOT_DIR="${HOME}/work/proj/buildroot/buildroot-2014.11" ;;
+      "2015.11") export BUILDROOT_DIR="${HOME}/work/proj/buildroot/buildroot-2015.11" ;;
    esac
    [ "$(find /media/ca-rd-ifw/pkgsrc -type f)" ] && {
       export BR_DOWNLOAD_DIR="/media/ca-rd-ifw/pkgsrc"
    } || {
-      export BR_DOWNLOAD_DIR="${HOME}/work/bin/pkgsrc"
+      export BR_DOWNLOAD_DIR="${HOME}/work/proj/pkgsrc"
    }
    export JLEVEL=4
 }
@@ -46,8 +46,8 @@ case $proj in
       ;;
 
    map-oe)
-      export PATH="/home/mlangloi/work/projects/map-3901/map-3901/tools/sdcard:/opt/arago/linux-devkit/bin:$PATH"
-      cd ${HOME}/work/projects/map-3901/oe/build
+      export PATH="/home/mlangloi/work/proj/map-3901/map-3901/tools/sdcard:/opt/arago/linux-devkit/bin:$PATH"
+      cd ${HOME}/work/proj/map-3901/oe/build
       source conf/setenv map3901
       setPrompt map3901-oe
       ;;
@@ -59,36 +59,36 @@ case $proj in
          export BUILDROOT_CONF_NAME=cpueth3-dds_defconfig
       fi
       #export FPGA_DIR=/media/ca-ops-data/projets/3034_Densite3+_CPU-ETH3/FPGA/autobuild/halo
-      cd ${HOME}/work/projects/cpueth3
+      cd ${HOME}/work/proj/cpueth3
       setenv env
       ;;
 
    stargate)
       setPrompt "BR:stargate"
       buildroot 2014.11
-      export FPGA_DIR=${HOME}/work/projects/stargate/fpga
-      cd ${HOME}/work/projects/stargate
+      export FPGA_DIR=${HOME}/work/proj/stargate/fpga
+      cd ${HOME}/work/proj/stargate
       setenv env
       ;;
 
    ipfrmk)
       setPrompt "BR:ipfrmk"
       buildroot 2014.11
-      cd ${HOME}/work/projects/ipfrmk
+      cd ${HOME}/work/proj/ipfrmk
       setenv repos
       ;;
 
    ifm)
       setPrompt "BR:ifm"
       buildroot 2014.11
-      cd ${HOME}/work/projects/ifm2t
+      cd ${HOME}/work/proj/ifm2t
       setenv repos
       ;;
 
    uhd)
       setPrompt "BR:uhd3901"
       buildroot 2014.11
-      cd ${HOME}/work/projects/uhd3901
+      cd ${HOME}/work/proj/uhd3901
       setenv env
       ;;
 
@@ -96,7 +96,7 @@ case $proj in
       setPrompt "BR:xio4901"
       buildroot 2014.11
       #export FPGA=/media/ca-ops-data/projets/6106_XIO-49XX/FPGA
-      cd ${HOME}/work/projects/xio4901
+      cd ${HOME}/work/proj/xio4901
       setenv repos
       ;;
 
@@ -104,28 +104,28 @@ case $proj in
       setPrompt "BR:xio4901-1.3"
       buildroot 2014.11
       export FPGA=/media/ca-ops-data/projets/6106_XIO-49XX/XIO-FPGA-tool
-      cd ${HOME}/work/projects/xio4901-1.x
+      cd ${HOME}/work/proj/xio4901-1.x
       setenv repos
       ;;
 
    xipuc)
-      cd ${HOME}/work/projects/xip3901uc
+      cd ${HOME}/work/proj/xip3901uc
       source env/setenv
       ;;
 
    xipdc)
-      cd ${HOME}/work/projects/xip3901dc
+      cd ${HOME}/work/proj/xip3901dc
       source env/setenv
       ;;
 
    xipfs)
-      cd ${HOME}/work/projects/xip3901fs
+      cd ${HOME}/work/proj/xip3901fs
       source env/setenv
       ;;
 
    sme)
       setPrompt "BR:sme1901"
-      cd ${HOME}/work/projects/sme1901
+      cd ${HOME}/work/proj/sme1901
       ;;
 
    *)
