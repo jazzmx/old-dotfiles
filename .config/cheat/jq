@@ -1,0 +1,58 @@
+# Pretty print the json
+cat filename | jq
+jq "." < filename.json
+
+# Access the value at key "foo"
+jq '.foo'
+
+# Access first list item
+jq '.[0]'
+
+# Slice & Dice
+jq '.[2:4]'
+jq '.[:3]'
+jq '.[-2:]'
+
+
+# Example json file:
+#
+# [
+#   {
+#     "dir": "xip3901dc",
+#     "name": "XIP-3901-DC",
+#     "version": "1.0.0.37",
+#     "appId": 2,
+#     "license": 0
+#   },
+#   {
+#     "dir": "xip3901uc",
+#     "name": "XIP-3901-UC",
+#     "version": "1.1.0.47",
+#     "appId": 1,
+#     "license": 0
+#   }
+# ]
+# 
+
+
+# Update apps.json
+# Check if $APP_NAME exists
+[ "$(jq ".[] | select(.dir==\"$APP_NAME\")" "$injson")" ] && {
+   # If exists update it
+   jq -c "map(if .dir == \"$APP_NAME\" then . + {\"version\":\"$VERSION_ID.$BUILD_ID\"} else . end)" "$injson" > "$outjson"
+} || {
+   # Else add it
+   jq -c ". += [{\"dir\":\"$APP_NAME\",\"name\":\"$APP_LABEL\",\"version\":\"$VERSION_ID.$BUILD_ID\",\"appId\":$APP_OPTION_ID}]" "$injson" > "$outjson"
+}
+
+
+# Iterate over array with jq (Bash 4.0 or newer required)
+declare -A values=( ) descriptions=( )
+while IFS= read -r dir &&
+      IFS= read -r name &&
+      IFS= read -r appId; do
+
+   echo "Read: dir($dir) name($name) id($appId)"
+
+done < <(jq -r '.[] | (.dir, .name, .appId)' <in.json)
+
