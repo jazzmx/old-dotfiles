@@ -36,13 +36,13 @@
 
    save = !git add -u && git commit -m 'SAVEPOINT'
    save-all = !git add -A && git commit -m 'SAVEPOINT'
-   remove-untracked = !git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
 
    vdiff = difftool
    upd = !git pull --rebase --prune $@ && git submodule update --init --recursive
    wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
    bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
    bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+   remove-untracked = "!f() { git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d; }; f"
 
    lg = log --graph --pretty=format:'%C(bold green)%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(yellow)%d%Creset' --abbrev-commit
    lg1 = !"git lg1-specific --all"
