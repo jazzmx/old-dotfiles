@@ -5,8 +5,8 @@ buildroot() {
    local version
    [ -z "$1" ] && version="2014.11" || version="$1"
    case "$version" in
-      "2014.11") export BUILDROOT_DIR="${HOME}/work/proj/buildroot/buildroot-2014.11" ;;
-      "2015.11") export BUILDROOT_DIR="${HOME}/work/proj/buildroot/buildroot-2015.11" ;;
+      "2014.11") export BUILDROOT_DIR="${HOME}/work/proj/buildroot/2014.11" ;;
+      "2015.11") export BUILDROOT_DIR="${HOME}/work/proj/buildroot/2015.11" ;;
    esac
    [ "$(find /media/ca-rd-ifw/pkgsrc -type f)" ] && {
       export BR_DOWNLOAD_DIR="/media/ca-rd-ifw/pkgsrc"
