@@ -131,6 +131,7 @@ bindsym $mod+Shift+space focus mode_toggle
 #
 set $out1    DisplayPort-0
 set $out2    DVI-0
+set $wsSys   "Sys"
 set $wsWeb   "Web"
 set $wsMail  "Mail"
 set $wsMusic "Music"
@@ -144,22 +145,15 @@ set $ws7     "Dev7"
 set $ws8     "Dev8"
 set $ws9     "Dev9"
 # assign workspaces to output
+workspace $wsSys   output $out1
 workspace $wsWeb   output $out2
 workspace $wsMail  output $out1
 workspace $wsMusic output $out2
-#workspace $ws1 output $out1
-#workspace $ws2 output $out1
-#workspace $ws3 output $out1
-#workspace $ws4 output $out1
-#workspace $ws5 output $out1
-#workspace $ws6 output $out2
-#workspace $ws7 output $out2
-#workspace $ws8 output $out2
-#workspace $ws9 output $out2
 # switch workspace
-bindsym $mod+F1 workspace $wsWeb
-bindsym $mod+F2 workspace $wsMail
-bindsym $mod+F3 workspace $wsMusic
+bindsym $mod+F1 workspace $wsSys
+bindsym $mod+F2 workspace $wsWeb
+bindsym $mod+F3 workspace $wsMail
+bindsym $mod+F4 workspace $wsMusic
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -170,6 +164,10 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 # move focused container to workspace
+bindsym $mod+Shift+F1 move container to workspace $wsSys
+bindsym $mod+Shift+F2 move container to workspace $wsWeb
+bindsym $mod+Shift+F3 move container to workspace $wsMail
+bindsym $mod+Shift+F4 move container to workspace $wsMusic
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -244,7 +242,7 @@ for_window [class="Spotify"] move to workspace $wsMusic
 exec_always --no-startup-id numlockx on
 exec --no-startup-id $term --name dropdown
 exec --no-startup-id $kbdlayout us
-exec --no-startup-id udiskie -2 --tray
+exec --no-startup-id clipit
 exec --no-startup-id synergy
 exec --no-startup-id nm-applet
 exec volumeicon
