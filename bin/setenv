@@ -123,6 +123,11 @@ case $proj in
       source env/setenv
       ;;
 
+   xipudcip)
+      cd ${HOME}/work/proj/xip3901udcip
+      source env/setenv
+      ;;
+
    sme)
       setPrompt "BR:sme1901"
       cd ${HOME}/work/proj/sme1901
