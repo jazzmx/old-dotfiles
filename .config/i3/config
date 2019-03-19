@@ -131,9 +131,9 @@ bindsym $mod+Shift+space focus mode_toggle
 #
 set $out1    DisplayPort-0
 set $out2    DVI-0
+set $wsMail  "Mail"
 set $wsSys   "Sys"
 set $wsWeb   "Web"
-set $wsMail  "Mail"
 set $wsMusic "Music"
 set $ws1     "Dev1"
 set $ws2     "Dev2"
@@ -145,14 +145,14 @@ set $ws7     "Dev7"
 set $ws8     "Dev8"
 set $ws9     "Dev9"
 # assign workspaces to output
+workspace $wsMail  output $out1
 workspace $wsSys   output $out1
 workspace $wsWeb   output $out2
-workspace $wsMail  output $out1
 workspace $wsMusic output $out2
 # switch workspace
-bindsym $mod+F1 workspace $wsSys
-bindsym $mod+F2 workspace $wsWeb
-bindsym $mod+F3 workspace $wsMail
+bindsym $mod+F1 workspace $wsMail
+bindsym $mod+F2 workspace $wsSys
+bindsym $mod+F3 workspace $wsWeb
 bindsym $mod+F4 workspace $wsMusic
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -164,9 +164,9 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 # move focused container to workspace
-bindsym $mod+Shift+F1 move container to workspace $wsSys
-bindsym $mod+Shift+F2 move container to workspace $wsWeb
-bindsym $mod+Shift+F3 move container to workspace $wsMail
+bindsym $mod+Shift+F1 move container to workspace $wsMail
+bindsym $mod+Shift+F2 move container to workspace $wsSys
+bindsym $mod+Shift+F3 move container to workspace $wsWeb
 bindsym $mod+Shift+F4 move container to workspace $wsMusic
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -177,9 +177,11 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
-# switch / move workspace to output
-bindsym $mod+Tab workspace next_on_output
-bindsym $mod+Shift+Tab workspace prev_on_output
+# Move container to next workspace
+bindsym $mod+Shift+Tab move container to workspace next
+# switch to next workspace
+bindsym $mod+Tab workspace next
+# move workspace to next output
 bindsym $mod+$alt+Tab move workspace to output right
 
 # CUSTOM ACTIONS ====================================================
@@ -224,18 +226,19 @@ bindsym XF86AudioMute  exec --no-startup-id pactl set-sink-mute 0 toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 # Screenshots
-bindsym --release Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
-bindsym --release $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%s).png
-bindsym --release Control+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%s).png
+#bindsym --release Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
+#bindsym --release $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%s).png
+#bindsym --release Control+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%s).png
 
 # Define scratchpad
 for_window [instance="dropdown"] floating enable, resize set 1200 600, border pixel 5, move scratchpad
-bindsym $mod+s [instance="dropdown"] scratchpad show, move position center 
+bindsym $mod+s [instance="dropdown"] scratchpad show, move position center
 #exec $term --name dropdown
 
 # Assign apps to specific workspaces
 assign [class="pidgin"] $wsMail
 assign [class="evolution"] $wsMail
+assign [class="hiri"] $wsMail
 assign [class="google-chrome-stable"] $wsWeb
 for_window [class="Spotify"] move to workspace $wsMusic
 
@@ -247,6 +250,6 @@ exec --no-startup-id synergy
 exec --no-startup-id nm-applet
 exec volumeicon
 exec xfce4-notes
-exec mintupdate-launcher
 exec pidgin
+exec mintupdate-launcher
 
