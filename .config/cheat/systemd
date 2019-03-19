@@ -1,18 +1,38 @@
-# Display process startup time
-systemd-analyze
-
-# Display process startup time at service level
-systemd-analyze blame
-
-# List running units
-systemctl list-units
-
-# Load a unit at startup
-systemctl enable foo.service
-
-# Start or Stop a unit
-systemctl <start | stop> foo.service
-
+# Systemd information
 # Unit file locations
 /etc/systemd/system
 /usr/lib/systemd/system
+
+# List sockets
+systemctl list-sockets
+# List running units
+systemctl list-units
+# List unit files and states
+systemctl list-unit-files
+# List default target (target ~= run-level)
+systemctl get-default
+
+# Enable a unit at startup
+systemctl <enable|disable> foo.service
+# Start or Stop a unit
+systemctl <start|stop|restart|reload> foo.service
+systemctl status foo.service
+systemctl show foo.service
+
+# System states
+systemctl <reboot|poweroff|emergency|default>
+
+# See log messages
+journalctl
+# Follow log messages (tail -f)
+journalctl -f
+# See log messages of service
+journalctl -u foo.service
+# Show kernel messages
+journalctl -k
+
+# Display process startup time
+systemd-analyze
+# Display process startup time at service level
+systemd-analyze blame
+
