@@ -20,6 +20,7 @@
    pf = push --force
    pt = push --tags
    pft = push --force --tags
+   pu = push -u origin HEAD
    pp = pull --prune
    d  = diff
    dc = diff --cached

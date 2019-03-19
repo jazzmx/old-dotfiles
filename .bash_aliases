@@ -9,7 +9,8 @@ alias .5='cd ../../../../..'
 
 alias ls='ls --color=auto'
 alias ll='ls -alhF'
-alias la='ls -lA'
+alias la='ls -lAh'
+alias l='ls -CF'
 #alias make='colormake'
 alias diff='colordiff'
 #alias mount='mount |column -t'
@@ -26,6 +27,9 @@ alias mkdir='mkdir -p'
 #alias mv='mv -i'
 #alias cp='cp -i'
 #alias ln='ln -i'
+
+# Add a "notify" alias for long running commands.  Use like so: sleep 10; alert
+alias notify='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Tmux
 alias tmn='tmux new -s'
