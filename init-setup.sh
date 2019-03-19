@@ -53,6 +53,7 @@ sudo apt install clang-4.0 clang-4.0-doc libclang-common-4.0-dev libclang-4.0-de
 #
 # Build packages from sources
 #
+PREFIX=/usr/local
 BIN_DIR="$HOME/bin"
 BUILD_DIR="$HOME/build"
 mkdir -p $BIN_DIR $BUILD_DIR
@@ -61,20 +62,20 @@ cd $BUILD_DIR
 # ranger
 git clone https://github.com/ranger/ranger.git
 pushd ranger
-sudo make prefix=/usr/local install
+sudo make prefix=$PREFIX install
 popd
 
 # tmux
 git clone https://github.com/tmux/tmux.git
 pushd tmux
 sh autogen.sh
-./configure && make && sudo make prefix=/usr/local install
+./configure && make && sudo make prefix=$PREFIX install
 popd
 
 # xcape
 git clone https://github.com/alols/xcape.git
-pushd $INSTALL_DIR
-make && sudo make prefix=/usr/local install
+pushd xcape
+make && sudo make prefix=$PREFIX install
 popd
 
 # Powerline fonts
@@ -87,7 +88,7 @@ rm -rf fonts
 # gitsh
 curl -OL https://github.com/thoughtbot/gitsh/releases/download/v0.12/gitsh-0.12.tar.gz
 pushd gitsh-0.12
-./configure && make && sudo make prefix=/usr/local install
+./configure && make && sudo make prefix=$PREFIX install
 popd
 
 # vte-ng
@@ -95,26 +96,37 @@ sudo apt install autoconf libglib2.0-dev gtk-doc-tools
 git clone https://github.com/thestinger/vte-ng.git
 pushd vte-ng
 sh autogen.sh
-make && sudo make prefix=/usr/local install
+make && sudo make prefix=$PREFIX install
 popd
 
 # termite
 git clone https://github.com/thestinger/termite.git
 pushd termite
-make && sudo make prefix=/usr/local install
+make && sudo make prefix=$PREFIX install
 popd
 
 # fzy
 git clone https://github.com/jhawthorn/fzy.git
 pushd fzy
-make && sudo make prefix=/usr/local install
+make && sudo make prefix=$PREFIX install
 popd
 
 # rtags
 git clone --recursive https://github.com/Andersbakken/rtags.git
 pushd rtags
+rm -rf build
 mkdir build && cd build
 cmake ..
-make && sudo make prefix=/usr/local install
+make && sudo make prefix=$PREFIX install
+popd
+
+# cquery
+git clone --recursive https://github.com/cquery-project/cquery.git
+pushd cquery
+rm -rf build
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+cmake --build .
+cmake --build . --target install
 popd
 
