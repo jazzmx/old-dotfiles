@@ -106,3 +106,5 @@ if [ -z "$(pgrep xcape)" ]; then
    [ "$(which xcape)" ] && xcape -e 'Control_L=Escape'
 fi
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
