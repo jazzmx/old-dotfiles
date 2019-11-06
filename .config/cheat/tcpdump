@@ -1,11 +1,10 @@
-# TCPDump is a packet analyzer. It allows the user to intercept and display TCP/IP
-# and other packets being transmitted or received over a network. (cf Wikipedia).
-# Note: 173.194.40.120 => google.com
-
 # Intercepts all packets on eth0
 tcpdump -i eth0
 
-# Intercepts all packets from/to 173.194.40.120
+# Intercepts all ICMP packets on eth0
+tcpdump -i eth0 icmp
+
+# Intercepts all packets from/to 173.194.40.120 (google.com)
 tcpdump host 173.194.40.120
 
 # Intercepts all packets on all interfaces from / to 173.194.40.120 port 80
