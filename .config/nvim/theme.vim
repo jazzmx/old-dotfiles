@@ -19,10 +19,16 @@ if !has('gui_running')
   set t_Co=256
 endif
 
+
 colorscheme gruvbox
 set background=dark
-let g:airline_theme='hybrid'
-let g:lightline = { 'colorscheme': 'wombat' }
-hi CursorLine ctermbg=Black guibg=#161616
 set guifont=Inconsolata\ Nerd\ Font\ Complete\ Mono\ 11
+hi CursorLine ctermbg=Black guibg=#161616
+
+" lightline
+let g:lightline = { 'colorscheme': 'wombat' }
+
+" Tmuxline
+let g:tmuxline_theme = 'iceberg'
+let g:tmuxline_preset = 'nightly_fox'
 

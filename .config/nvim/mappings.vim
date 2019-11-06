@@ -79,7 +79,7 @@ map <F9> :make!<CR>
 nnoremap <F6> :%s/<C-r><C-w>/
 
 " Grep word under cursor with K
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :Rg! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " Grep word under cursor with F3
 map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
@@ -106,3 +106,15 @@ nnoremap <leader>gps :Dispatch! git push<CR>
 nnoremap <leader>gpl :Dispatch! git pull<CR>
 
 
+map <C-n> :NERDTreeToggle<CR>
+
+"
+" RipGrep
+"
+nnoremap <C-g> :Rg<Cr>
+
+"
+" FZF
+"
+nnoremap <C-p> :Files<CR>
+nnoremap <C-b> :Buffers<CR>

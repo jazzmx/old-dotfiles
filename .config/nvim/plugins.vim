@@ -6,11 +6,9 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-"
+Plug 'ryanoasis/vim-devicons'
+
 " General usage plugins
-Plug 'sheerun/vim-polyglot'
-Plug 'chrisbra/vim-kconfig'
-"Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
@@ -20,27 +18,26 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-projectionist'
-
-Plug 'Shougo/denite.nvim'
-Plug 'chemzqm/denite-extra'
-Plug 'JoZie/denite-make'
-Plug 'vim-scripts/Smart-Tabs'
-Plug 'vim-scripts/taglist.vim'
-Plug 'mbbill/undotree'
-"Plug 'sjl/gundo.vim'
-"Plug 'vifm/neovim-vifm'
-
-Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-"Plug 'cloudhead/neovim-fuzzy'
 "Plug 'tpope/vim-obsession'
 "Plug 'dhruvasagar/vim-prosession'
-Plug 'tpope/vim-Fugitive'
+Plug 'sheerun/vim-polyglot'
+Plug 'chrisbra/vim-kconfig'
+Plug 'ahonn/resize.vim'
+
+Plug 'vim-scripts/taglist.vim'
+Plug 'mbbill/undotree'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'jremmen/vim-ripgrep'
+Plug 'dyng/ctrlsf.vim'
+
+" Git plugins
+Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
-Plug 'dyng/ctrlsf.vim'
-Plug 'vimwiki/vimwiki'
+
+"Plug 'vimwiki/vimwiki'
 
 "
 " tmux integration
@@ -49,7 +46,6 @@ Plug 'vimwiki/vimwiki'
 
 "
 " Directory browsing
-Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  'NERDTreeToggle' }
@@ -68,6 +64,10 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'neoclide/coc.nvim', {'branch':'release'}
 Plug 'ericcurtin/CurtineIncSw.vim'
+"
+"Plug 'shougo/denite.nvim'
+"Plug 'chemzqm/denite-extra'
+"Plug 'jozie/denite-make'
 "
 "Plug 'zchee/deoplete-clang'
 "Plug 'rzaluska/deoplete-rtags'
