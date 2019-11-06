@@ -18,7 +18,7 @@
     clickable_url = true
     font = Liberation Mono for Powerline 10
     #font = Inconsolate Nerd Tree Complete Mono 10
-    scrollback_lines = 10000
+    scrollback_lines = 25000
     search_wrap = true
     icon_name = terminal
     #geometry = 640x480
