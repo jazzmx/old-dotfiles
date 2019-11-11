@@ -10,26 +10,26 @@
 
 set $wallpaper $HOME/Pictures/Wallpapers/linux-human-imagenes.png
 # Default applications
-set $term i3-sensible-terminal
-set $browser google-chrome
-set $logout ~/bin/session
-set $kbdlayout ~/bin/kbdlayout
+set $term      i3-sensible-terminal
+set $browser   google-chrome
+set $logout    $HOME/bin/session
+set $kbdlayout $HOME/bin/kbdlayout
 # Workspaces
-set $out1    DisplayPort-0
-set $out2    DVI-0
-set $wsMail  "Mail"
-set $wsWeb   "Web"
-set $wsMusic "Music"
-set $wsSys   "Sys"
-set $ws1     "Dev1"
-set $ws2     "Dev2"
-set $ws3     "Dev3"
-set $ws4     "Dev4"
-set $ws5     "Dev5"
-set $ws6     "Dev6"
-set $ws7     "Dev7"
-set $ws8     "Dev8"
-set $ws9     "Dev9"
+set $out1      DisplayPort-0
+set $out2      DVI-0
+set $wsMail    "Mail"
+set $wsWeb     "Web"
+set $wsMusic   "Music"
+set $wsSys     "Sys"
+set $ws1       "Dev1"
+set $ws2       "Dev2"
+set $ws3       "Dev3"
+set $ws4       "Dev4"
+set $ws5       "Dev5"
+set $ws6       "Dev6"
+set $ws7       "Dev7"
+set $ws8       "Dev8"
+set $ws9       "Dev9"
 
 
 # THEME =======================================================================
@@ -215,7 +215,7 @@ bindsym $mod+Shift+a   exec "rofi -modi run,drun,ssh -show drun"
 # Alt-tab for opened windows menu
 bindsym $alt+Tab       exec rofi -modi window -show window -show-icons
 # Switch keyboard layout
-bindsym $mod+z         exec --no-startup-id $kbdlayout
+bindsym $mod+z         exec --no-startup-id $kbdlayout toggle
 # Media keys
 bindsym XF86Explorer   exec spacefm
 bindsym XF86HomePage   exec $browser
@@ -228,7 +228,7 @@ bindsym XF86AudioNext  exec playerctl next
 bindsym XF86AudioMute  exec --no-startup-id pactl set-sink-mute 0 toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym $mod+m [class="thunderbird"] focus
+bindsym $mod+m [class="Thunderbird"] focus
 # Screenshots
 #bindsym --release Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
 #bindsym --release $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%s).png
@@ -244,21 +244,22 @@ for_window [instance="dropdown"] floating enable, resize set 1200 600, border pi
 bindcode $mod+49 [instance="dropdown"] scratchpad show
 
 # Assign apps to specific workspaces
-assign [class="pidgin"] $wsMail
-assign [class="thunderbird"] $wsMail
-assign [class="evolution"] $wsMail
-assign [class="slack"] $wsMail
+assign [class="Pidgin"] $wsMail
+assign [class="Thunderbird"] $wsMail
+assign [class="Evolution"] $wsMail
+assign [class="Slack"] $wsMail
 assign [class="google-chrome-stable"] $wsWeb
 for_window [class="Spotify"] move to workspace $wsMusic
+for_window [class="Termite"] exec $kbdlayout us
 
 exec_always --no-startup-id numlockx on
+exec --no-startup-id davmail $HOME/.config/davmail/davmail.properties
 exec --no-startup-id $term --name ranger -e ranger
 exec --no-startup-id $term --name dropdown
 exec --no-startup-id $kbdlayout us
 exec --no-startup-id copyq
 exec --no-startup-id synergy
 exec --no-startup-id nm-applet
-exec --no-startup-id davmail $HOME/.config/davmail/davmail.properties
 exec mintupdate-launcher
 exec xfce4-notes
 exec volumeicon
