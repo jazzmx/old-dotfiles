@@ -5,11 +5,12 @@ current="$(setxkbmap -query | sed -rn 's/layout\:[ ]+(.*)$/\1/p')"
 us="us"
 ca="ca -variant multix"
 
-[ "$layout" ] && {
-   setxkbmap $layout
-} || {
-   [ "$current" = us ] && setxkbmap $ca || setxkbmap $us
-}
+[ -z "$layout" ] && { echo "$current"; exit; }
+
+case "$layout" in
+   -t|toggle) [ "$current" = us ] && setxkbmap $ca || setxkbmap $us ;;
+   *) setxkbmap $layout ;;
+esac
 
 # Enable digraphs
 setxkbmap -option compose:ralt
