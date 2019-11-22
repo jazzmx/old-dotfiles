@@ -18,6 +18,8 @@ nnoremap <leader>rv :so $MYVIMRC<CR>
 "inoremap <right> <nop>
 " Make ';'' act as ':'
 nnoremap ; :
+" Redo with U instead of Ctrl+R
+nnoremap U <C-R>
 " Quick save
 nnoremap <C-s> :update<CR>
 nnoremap <C-q> :q<CR>
@@ -72,16 +74,8 @@ nnoremap <leader>i :set list!<CR>
 " Better find and replace
 map <leader>fr :%s///g<left><left><left>
 
-" Switch header / source .c*,.h*
-map <F5> :call CurtineIncSw()<CR>
-" Call make
-map <F9> :make!<CR>
-nnoremap <F6> :%s/<C-r><C-w>/
-
 " Grep word under cursor with K
 nnoremap K :Rg! "\b<C-R><C-W>\b"<CR>:cw<CR>
-" Grep word under cursor with F3
-map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
 if &diff
   map ] ]c
@@ -118,3 +112,15 @@ nnoremap <C-g> :Rg<Cr>
 "
 nnoremap <C-p> :Files<CR>
 nnoremap <C-b> :Buffers<CR>
+
+"
+" Function keys mapping
+"
+" Grep word under cursor with F3
+"map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+" Switch header / source .c*,.h*
+map <F5> :call CurtineIncSw()<CR>
+" Call make
+map <F9> :make!<CR>
+nnoremap <F6> :%s/<C-r><C-w>/
+

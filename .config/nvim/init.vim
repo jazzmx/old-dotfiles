@@ -9,9 +9,7 @@
 set nocompatible
 let mapleader = ","
 
-if has('autocmd')
-  filetype plugin indent on
-endif
+let g:python3_host_prog = "/usr/local/bin/python3.6"
 
 " ==============================================
 source $HOME/.config/nvim/plugins.vim

@@ -1,14 +1,17 @@
 call plug#begin('~/.config/nvim/plugged')
 "
+"--------------------------
 " Visual plugins & themes
-"Plug 'joshdick/onedark.vim'
-"Plug 'jacoborus/tender.vim'
-"Plug 'NLKNguyen/papercolor-theme'
+"--------------------------
+Plug 'joshdick/onedark.vim'
+Plug 'jacoborus/tender.vim'
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 
+"--------------------------
 " General usage plugins
+"--------------------------
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
@@ -17,61 +20,81 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-projectionist'
-"Plug 'tpope/vim-obsession'
-"Plug 'dhruvasagar/vim-prosession'
-Plug 'sheerun/vim-polyglot'
-Plug 'chrisbra/vim-kconfig'
+Plug 'mhinz/vim-startify'
 Plug 'ahonn/resize.vim'
+"Plug 'edkolev/tmuxline.vim'
+"Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'vim-scripts/taglist.vim'
-Plug 'mbbill/undotree'
-
+"--------------------------
+" Fuzzy finder
+"--------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'dyng/ctrlsf.vim'
 
+"--------------------------
 " Git plugins
+"--------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
-Plug 'airblade/vim-gitgutter'
-
-"Plug 'vimwiki/vimwiki'
-
-"
-" tmux integration
-"Plug 'edkolev/tmuxline.vim'
-"Plug 'christoomey/vim-tmux-navigator'
-
-"
-" Directory browsing
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  'NERDTreeToggle' }
-
-"
-" C & C++ specific plugins
-"Plug ervandew/supertab
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
 else
-  Plug 'Shougo/deoplete.nvim'
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
+
+"--------------------------
+" File manager
+"--------------------------
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'kristijanhusak/defx-icons'
+else
+  Plug 'Shougo/defx.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+
+"--------------------------
+" Programming
+"--------------------------
+Plug 'sheerun/vim-polyglot'
+Plug 'chrisbra/vim-kconfig'
+"Plug 'vim-scripts/taglist.vim'
+" Snippets manager
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+" Autocomplete
 Plug 'neoclide/coc.nvim', {'branch':'release'}
+
+"--------------------------
+" C & C++ specific plugins
+"--------------------------
 Plug 'ericcurtin/CurtineIncSw.vim'
-"
-"Plug 'shougo/denite.nvim'
-"Plug 'chemzqm/denite-extra'
-"Plug 'jozie/denite-make'
-"
+
+"--------------------------
+" Vue.js
+"--------------------------
+Plug 'posva/vim-vue'
+Plug 'neoclide/coc-vetur'
+
+
+"if has('nvim')
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+"  Plug 'Shougo/deoplete.nvim'
+"  Plug 'roxma/nvim-yarp'
+"  Plug 'roxma/vim-hug-neovim-rpc'
+"endif
 "Plug 'zchee/deoplete-clang'
 "Plug 'rzaluska/deoplete-rtags'
 "Plug 'marxin/neo-rtags'
+
+"Plug 'shougo/denite.nvim'
+"Plug 'chemzqm/denite-extra'
+"Plug 'jozie/denite-make'
+
 
 call plug#end()
 
