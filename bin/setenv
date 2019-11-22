@@ -16,14 +16,6 @@ buildroot() {
    export JLEVEL=4
 }
 
-setenv() {
-   if [ -f $1/setenv ]; then
-      source $1/setenv
-   else
-      echo "Cannot find '$1/setenv'!"
-   fi
-}
-
 setPrompt() {
    export PROMPT_ID="$1"
    [ "$BASH" ] && export BR_PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w] \[\e[1;33m\]$(__git_ps1 "(%s)")\n\[\e[1;31m\][$PROMPT_ID] \$\[\e[0m\] '
@@ -60,7 +52,7 @@ case $proj in
       fi
       #export FPGA_DIR=/media/ca-ops-data/projets/3034_Densite3+_CPU-ETH3/FPGA/autobuild/halo
       cd ${HOME}/work/proj/cpueth3
-      setenv env
+      source env/setenv
       ;;
 
    stargate)
@@ -68,63 +60,27 @@ case $proj in
       buildroot 2014.11
       export FPGA_DIR=${HOME}/work/proj/stargate/fpga
       cd ${HOME}/work/proj/stargate
-      setenv env
+      source env/setenv
       ;;
 
    ipfrmk)
       setPrompt "BR:ipfrmk"
       buildroot 2014.11
       cd ${HOME}/work/proj/ipfrmk
-      setenv repos
+      source repos/setenv
       ;;
 
    ifm)
       setPrompt "BR:ifm"
       buildroot 2014.11
       cd ${HOME}/work/proj/ifm2t
-      setenv repos
+      source repos/setenv
       ;;
 
    uhd)
       setPrompt "BR:uhd3901"
       buildroot 2014.11
       cd ${HOME}/work/proj/uhd3901
-      setenv env
-      ;;
-
-   xio)
-      setPrompt "BR:xio4901"
-      buildroot 2014.11
-      #export FPGA=/media/ca-ops-data/projets/6106_XIO-49XX/FPGA
-      cd ${HOME}/work/proj/xio4901
-      setenv repos
-      ;;
-
-   xio-1.3)
-      setPrompt "BR:xio4901-1.3"
-      buildroot 2014.11
-      export FPGA=/media/ca-ops-data/projets/6106_XIO-49XX/XIO-FPGA-tool
-      cd ${HOME}/work/proj/xio4901-1.x
-      setenv repos
-      ;;
-
-   xipuc)
-      cd ${HOME}/work/proj/xip3901uc
-      source env/setenv
-      ;;
-
-   xipdc)
-      cd ${HOME}/work/proj/xip3901dc
-      source env/setenv
-      ;;
-
-   xipfs)
-      cd ${HOME}/work/proj/xip3901fs
-      source env/setenv
-      ;;
-
-   xipudcip)
-      cd ${HOME}/work/proj/xip3901udcip
       source env/setenv
       ;;
 

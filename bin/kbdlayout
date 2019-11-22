@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
 
-layout=$@
-current="$(setxkbmap -query | sed -rn 's/layout\:[ ]+(.*)$/\1/p')"
 us="us"
 ca="ca -variant multix"
+opt="-option compose:ralt" # Enable digraphs
 
-[ -z "$layout" ] && { echo "$current"; exit; }
+layout=$1
+current="$(setxkbmap -query | sed -rn 's/layout\:[ ]+(.*)$/\1/p')"
 
 case "$layout" in
-   -t|toggle) [ "$current" = us ] && setxkbmap $ca || setxkbmap $us ;;
-   *) setxkbmap $layout ;;
+   -t|toggle)
+      [ "$current" = "$us" ] && layout="$ca" || layout="$us"
+      ;;
+   "")
+      echo "$current"; exit 
+      ;;
 esac
 
-# Enable digraphs
-setxkbmap -option compose:ralt
+setxkbmap $layout $opt
 setxkbmap -query | sed -rn 's/layout\:[ ]+(.*)$/\1/p'
 
