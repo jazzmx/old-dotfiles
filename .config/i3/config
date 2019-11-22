@@ -63,7 +63,7 @@ set $darkgray #1d2021
 #
 bar {
     position bottom
-    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    status_command i3blocks -vvv -c ~/.config/i3/i3blocks.conf 
     tray_output primary
     colors {
         # bar background color
@@ -124,10 +124,10 @@ bindsym $mod+$alt+Down  resize grow   height 5 px or 5 ppt
 bindsym $mod+$alt+Up    resize shrink height 5 px or 5 ppt
 bindsym $mod+$alt+Right resize grow   width  5 px or 5 ppt
 # Change gaps
-bindsym $mod+i       gaps inner current plus 1
-bindsym $mod+Shift+i gaps inner current minus 1
-bindsym $mod+o       gaps outer current plus 1
-bindsym $mod+Shift+o gaps outer current minus 1
+#bindsym $mod+i       gaps inner current plus 1
+#bindsym $mod+Shift+i gaps inner current minus 1
+#bindsym $mod+o       gaps outer current plus 1
+#bindsym $mod+Shift+o gaps outer current minus 1
 
 # MODE & LAYOUT ===============================================================
 #
@@ -237,18 +237,19 @@ bindsym $mod+m [class="Thunderbird"] focus
 # Define ranger scratchpad
 for_window [instance="ranger"] floating enable, resize set 1200 600, border pixel 5, move scratchpad, move position 300px 470px
 bindsym $mod+e [instance="ranger"] scratchpad show
-
 # Define terminal scratchpad
 for_window [instance="dropdown"] floating enable, resize set 1200 600, border pixel 5, move scratchpad, move position 300px 20px
-#bindsym $mod+grave [instance="dropdown"] scratchpad show
 bindcode $mod+49 [instance="dropdown"] scratchpad show
+#bindsym $mod+grave [instance="dropdown"] scratchpad show
+# Define im scratchpad
+for_window [class="Pidgin"] floating enable, resize set 1200 600, border pixel 5, move scratchpad, move position 300px 470px
+bindsym $mod+i [class="Pidgin"] scratchpad show
 
 # Assign apps to specific workspaces
-assign [class="Pidgin"] $wsMail
 assign [class="Thunderbird"] $wsMail
 assign [class="Evolution"] $wsMail
 assign [class="Slack"] $wsMail
-assign [class="google-chrome-stable"] $wsWeb
+assign [class="Google-chrome"] $wsWeb
 for_window [class="Spotify"] move to workspace $wsMusic
 for_window [class="Termite"] exec $kbdlayout us
 

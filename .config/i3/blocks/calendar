@@ -1,4 +1,8 @@
 #!/bin/sh
+log=/home/mlangloi/i3block-calendar.log
+env | sort > $log
+echo "cmdline:" >> $log
+echo "$@" >> $log
 
 width=200
 height=200
