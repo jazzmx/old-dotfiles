@@ -57,6 +57,7 @@ set cinoptions+=g0
 "set complete=.,b,u,]
 set completeopt=menuone,preview
 set wildmode=longest,list:longest
+set clipboard+=unnamed
 
 " ==============================================
 " Splits settings
