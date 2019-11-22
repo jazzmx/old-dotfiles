@@ -61,9 +61,10 @@ function vix {
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-alias xip3901uc='source ~/work/proj/xip3901uc/env/setenv'
-alias xip3901dc='source ~/work/proj/xip3901dc/env/setenv'
-alias xip3901fs='source ~/work/proj/xip3901fs/env/setenv'
-alias xip3901udcip='source ~/work/proj/xip3901udcip/env/setenv'
-alias xip3901udcs1='source ~/work/proj/xip3901udcs1/env/setenv'
-alias cpu3='source ~/work/proj/cpueth3'
+alias xipuc='source ~/work/proj/xip3901uc/env/setenv'
+alias xipdc='source ~/work/proj/xip3901dc/env/setenv'
+alias xipfs='source ~/work/proj/xip3901fs/env/setenv'
+alias xipudcip='source ~/work/proj/xip3901udcip/env/setenv'
+alias xipudcs1='source ~/work/proj/xip3901udcs1/env/setenv'
+alias cpu3='source ~/work/proj/cpueth3/env/setenv'
+
