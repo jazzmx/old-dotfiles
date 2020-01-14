@@ -49,36 +49,8 @@ endif
 "}}}
 
 
-" ==============================================
-" #DEFX {{{
-if exists('g:loaded_defx')
-  " Close defx if only buffer left in the window
-  autocmd WinEnter * if &ft == 'defx' && winnr('$') == 1 | q | endif
 
-  call defx#custom#option('_', {
-    \ 'columns': 'indent:git:icons:filename',
-    \ 'winwidth': 30,
-    \ 'split': 'vertical',
-    \ 'direction': 'topleft',
-    \ 'show_ignored_files': 0,
-    \ 'toggle': 1,
-    \ 'resume': 1,
-    \ })
-
-  let g:defx_git#indicators = {
-    \ 'Modified'  : '•',
-    \ 'Staged'    : '✚',
-    \ 'Untracked' : 'ᵁ',
-    \ 'Renamed'   : '≫',
-    \ 'Unmerged'  : '≠',
-    \ 'Ignored'   : 'ⁱ',
-    \ 'Deleted'   : '✖',
-    \ 'Unknown'   : '⁇'
-    \ }
-
-endif
-"}}}
-
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " ==============================================
 " #MARKDOWN {{{
@@ -91,21 +63,6 @@ autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en
 "   autocmd!
 "   autocmd FileType md call pencil#init()
 " augroup END
-"}}}
-
-
-" ==============================================
-" #COC {{{
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-" command! -nargs=0 Prettier :CocCommand prettier.formatFile
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
 "}}}
 
 
