@@ -14,11 +14,11 @@ let g:python3_host_prog = "/usr/local/bin/python3.6"
 
 " ==============================================
 source $HOME/.config/nvim/plugins.vim
+source $HOME/.config/nvim/plugins.conf/coc.vim
 source $HOME/.config/nvim/theme.vim
 source $HOME/.config/nvim/general.vim
 source $HOME/.config/nvim/functions.vim
 source $HOME/.config/nvim/mappings.vim
-source $HOME/.config/nvim/coc.vim
 " ==============================================
 
 " Autoread triggered when changing buffers

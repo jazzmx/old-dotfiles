@@ -1,0 +1,58 @@
+{
+  "explorer.keyMappings": {
+    "j": "nodeNext",
+    "k": "nodePrev",
+    "h": "collapse",
+    "l": "expand",
+
+    "<tab>": "toggleSelection",
+    "J": ["toggleSelection", "normal:j"],
+    "K": ["toggleSelection", "normal:k"],
+    "gd": "listDrive",
+    "gl": "expandRecursive",
+    "gh": "collapseRecursive",
+    "e": "expandOrCollapse",
+
+    "<cr>": "open",
+    "o": "open",
+    "v": "openInVsplit",
+    "t": "openInTab",
+    "P": "gotoParent",
+    "M": "actionMenu",
+
+    "N": "copyFilepath",
+    "n": "copyFilename",
+    "y": "copyFile",
+    "d": "cutFile",
+    "p": "pasteFile",
+    "x": "delete",
+    "D": "deleteForever",
+
+    "mf": "addFile",
+    "md": "addDirectory",
+    "r": "rename",
+
+    "f": "search",
+    "F": "searchRecursive",
+
+    ".": "toggleHidden",
+    "R": "refresh",
+    "q": "quit",
+    "X": "systemExecute",
+    "?": "help",
+
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
+
+    "[[": "sourcePrev",
+    "]]": "sourceNext",
+
+    "[d": "diagnosticPrev",
+    "]d": "diagnosticNext",
+
+    "[c": "gitPrev",
+    "]c": "gitNext",
+    "<<": "gitStage",
+    ">>": "gitUnstage"
+  }
+}

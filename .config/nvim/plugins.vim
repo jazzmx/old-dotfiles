@@ -34,23 +34,9 @@ Plug 'voldikss/vim-floaterm'
 "--------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Plug 'dyng/ctrlsf.vim'
 
 "--------------------------
-" File manager
-"--------------------------
-" if has('nvim')
-"   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/defx.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-" Plug 'kristijanhusak/defx-icons'
-" Plug 'kristijanhusak/defx-git'
-
-"--------------------------
-" Git plugins
+" Git
 "--------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -71,7 +57,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 "Plug 'vim-scripts/taglist.vim'
 
 "--------------------------
-" C & C++ specific plugins
+" C & C++ specific
 "--------------------------
 Plug 'ericcurtin/CurtineIncSw.vim'
 
@@ -80,23 +66,26 @@ Plug 'ericcurtin/CurtineIncSw.vim'
 "--------------------------
 Plug 'mattn/emmet-vim'
 
-" Autocomplete
-"Plug 'neovim/nvim-lsp'
-" COC auto-completion
+"--------------------------
+" COC
+"--------------------------
 Plug 'neoclide/coc.nvim', {'branch':'release'}
 
-"if has('nvim')
-"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-"  Plug 'Shougo/deoplete.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-"endif
-"Plug 'Shougo/deoplete-lsp'
-"Plug 'zchee/deoplete-clang'
-
-call plug#end()
-
+let g:coc_global_extensions = [
+ \   'coc-explorer',
+ \   'coc-snippets',
+ \   'coc-xml',
+ \   'coc-html',
+ \   'coc-json',
+ \   'coc-css',
+ \   'coc-tsserver',
+ \   'coc-vetur',
+ \   'coc-eslint',
+ \   'coc-prettier',
+ \   'coc-python',
+ \]
 
 let g:floaterm_position = 'center'
+
+call plug#end()
 
