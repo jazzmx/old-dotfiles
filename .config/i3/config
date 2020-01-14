@@ -10,8 +10,6 @@
 
 set $wallpaper $HOME/Pictures/Wallpapers/linux-human-imagenes.png
 # Default applications
-set $term      i3-sensible-terminal
-set $browser   google-chrome
 set $logout    $HOME/bin/session
 set $kbdlayout $HOME/bin/kbdlayout
 # Workspaces
@@ -203,9 +201,9 @@ bindsym $mod+Shift+q   exec $logout
 # kill focused window
 bindsym $mod+q         kill
 # start a terminal
-bindsym $mod+Return    exec $term
+bindsym $mod+Return    exec $TERMINAL
 # start a browser
-bindsym $mod+b         exec $browser
+bindsym $mod+b         exec $BROWSER
 # lock screen
 bindsym $mod+Escape    exec --no-startup-id i3lock -e -f -c 000000 -i $wallpaper
 # application menu (program launcher)
@@ -218,7 +216,7 @@ bindsym $alt+Tab       exec rofi -modi window -show window -show-icons
 bindsym $mod+z         exec --no-startup-id $kbdlayout toggle
 # Media keys
 bindsym XF86Explorer   exec spacefm
-bindsym XF86HomePage   exec $browser
+bindsym XF86HomePage   exec $BROWSER
 bindsym XF86Calculator exec gnome-calculator
 bindsym XF86Tools      exec spotify
 bindsym XF86AudioPlay  exec playerctl play-pause
@@ -250,13 +248,14 @@ assign [class="Thunderbird"] $wsMail
 assign [class="Evolution"] $wsMail
 assign [class="Slack"] $wsMail
 assign [class="Google-chrome"] $wsWeb
+assign [class="Firefox"] $wsWeb
 for_window [class="Spotify"] move to workspace $wsMusic
 for_window [class="Termite"] exec $kbdlayout us
 
 exec_always --no-startup-id numlockx on
 exec --no-startup-id davmail $HOME/.config/davmail/davmail.properties
-exec --no-startup-id $term --name ranger -e ranger
-exec --no-startup-id $term --name dropdown
+exec --no-startup-id $TERMINAL --name ranger -e ranger
+exec --no-startup-id $TERMINAL --name dropdown
 exec --no-startup-id $kbdlayout us
 exec --no-startup-id copyq
 exec --no-startup-id synergy
