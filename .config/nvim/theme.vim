@@ -15,20 +15,43 @@ endif
 if has("termguicolors")
    set termguicolors
 endif
-if !has('gui_running')
-  set t_Co=256
-endif
+"if !has('gui_running')
+"  set t_Co=256
+"endif
 
 
-colorscheme gruvbox
 set background=dark
+colorscheme gruvbox8_hard
 set guifont=Inconsolata\ Nerd\ Font\ Complete\ Mono\ 11
-hi CursorLine ctermbg=Black guibg=#161616
+"hi CursorLine ctermbg=Black guibg=#161616
+
+"
+" Gruvbox8 options
+"
+let g:gruvbox_filetype_hi_groups = 1
+let g:gruvbox_plugin_hi_groups = 1
+let g:gruvbox_transp_bg = 0
 
 " lightline
-let g:lightline = { 'colorscheme': 'wombat' }
+let g:lightline = { 'colorscheme': 'jellybeans' }
 
 " Tmuxline
-let g:tmuxline_theme = 'iceberg'
-let g:tmuxline_preset = 'nightly_fox'
+"let g:tmuxline_theme = 'iceberg'
+"let g:tmuxline_preset = 'nightly_fox'
+
+" FZF
+let g:fzf_colors = {
+  \ 'fg':      ['fg', 'GruvboxGray'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'GruvboxRed'],
+  \ 'fg+':     ['fg', 'GruvboxGreen'],
+  \ 'bg+':     ['bg', 'GruvboxBg1'],
+  \ 'hl+':     ['fg', 'GruvboxRed'],
+  \ 'info':    ['fg', 'GruvboxOrange'],
+  \ 'prompt':  ['fg', 'GruvboxBlue'],
+  \ 'header':  ['fg', 'GruvboxBlue'],
+  \ 'pointer': ['fg', 'Error'],
+  \ 'marker':  ['fg', 'Error'],
+  \ 'spinner': ['fg', 'Statement'],
+  \ }
 

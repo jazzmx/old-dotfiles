@@ -67,5 +67,7 @@ set diffopt+=vertical " Always use vertical diffs
 
 " ==============================================
 " Local vimrc
+" Auto load local vim settings from .vimlocal files
+"silent! so .vimlocal
 set exrc          " Allow loading local vimrc files for project specific settings
 set secure        " Restrict commands usage on local vimrc files
