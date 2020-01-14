@@ -61,72 +61,82 @@ cd $BUILD_DIR
 
 # ranger
 git clone https://github.com/ranger/ranger.git
-pushd ranger
-sudo make prefix=$PREFIX install
-popd
+(
+  cd ranger
+  sudo make prefix=$PREFIX install
+)
 
 # tmux
 git clone https://github.com/tmux/tmux.git
-pushd tmux
-sh autogen.sh
-./configure && make && sudo make prefix=$PREFIX install
-popd
+(
+  cd tmux
+  sh autogen.sh
+  ./configure && make && sudo make prefix=$PREFIX install
+)
 
 # xcape
 git clone https://github.com/alols/xcape.git
-pushd xcape
-make && sudo make prefix=$PREFIX install
-popd
+(
+  cd xcape
+  make && sudo make prefix=$PREFIX install
+)
 
 # Powerline fonts
 git clone https://github.com/powerline/fonts.git
-pushd fonts
-./install.sh
-popd
+(
+  cd fonts
+  ./install.sh
+)
 rm -rf fonts
 
 # gitsh
 curl -OL https://github.com/thoughtbot/gitsh/releases/download/v0.12/gitsh-0.12.tar.gz
-pushd gitsh-0.12
-./configure && make && sudo make prefix=$PREFIX install
-popd
+(
+  cd gitsh-0.12
+  ./configure && make && sudo make prefix=$PREFIX install
+)
 
 # vte-ng
 sudo apt install autoconf libglib2.0-dev gtk-doc-tools
 git clone https://github.com/thestinger/vte-ng.git
-pushd vte-ng
-sh autogen.sh
-make && sudo make prefix=$PREFIX install
-popd
+(
+  cd vte-ng
+  sh autogen.sh
+  make && sudo make prefix=$PREFIX install
+)
 
 # termite
 git clone https://github.com/thestinger/termite.git
-pushd termite
-make && sudo make prefix=$PREFIX install
-popd
+(
+  cd termite
+  make && sudo make prefix=$PREFIX install
+)
 
-# fzy
-git clone https://github.com/jhawthorn/fzy.git
-pushd fzy
-make && sudo make prefix=$PREFIX install
-popd
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git
+(
+  cd fzf
+  ./install
+)
 
 # rtags
 git clone --recursive https://github.com/Andersbakken/rtags.git
-pushd rtags
-rm -rf build
-mkdir build && cd build
-cmake ..
-make && sudo make prefix=$PREFIX install
-popd
+(
+  cd rtags
+  rm -rf build
+  mkdir build && cd build
+  cmake ..
+  make && sudo make prefix=$PREFIX install
+)
 
 # cquery
 git clone --recursive https://github.com/cquery-project/cquery.git
-pushd cquery
-rm -rf build
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-cmake --build .
-cmake --build . --target install
-popd
+(
+  cd cquery
+  rm -rf build
+  mkdir build && cd build
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+  cmake --build .
+  cmake --build . --target install
+)
 
