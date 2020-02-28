@@ -12,6 +12,7 @@ set $wallpaper $HOME/Pictures/Wallpapers/linux-human-imagenes.png
 # Default applications
 set $logout    $HOME/bin/session
 set $kbdlayout $HOME/bin/kbdlayout
+set $websearch $HOME/bin/websearch
 # Workspaces
 set $out1      DisplayPort-0
 set $out2      DVI-0
@@ -60,12 +61,12 @@ set $darkgray #1d2021
 # BAR CONFIG ==================================================================
 #
 bar {
-    position bottom
+    position top
     status_command i3blocks -vvv -c ~/.config/i3/i3blocks.conf 
     tray_output primary
     colors {
         # bar background color
-        background $bg
+        background $darkgray
         # text color used for blocks that do not have a color specified.
         statusline $yellow
         # workspaces         border  backgr. text
@@ -214,6 +215,8 @@ bindsym $mod+Shift+a   exec "rofi -modi run,drun,ssh -show drun"
 bindsym $alt+Tab       exec rofi -modi window -show window -show-icons
 # Switch keyboard layout
 bindsym $mod+z         exec --no-startup-id $kbdlayout toggle
+# Web search dmenu script
+bindsym $mod+g         exec --no-startup-id $websearch
 # Media keys
 bindsym XF86Explorer   exec spacefm
 bindsym XF86HomePage   exec $BROWSER
@@ -233,19 +236,17 @@ bindsym $mod+m [class="Thunderbird"] focus
 #bindsym --release Control+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%s).png
 
 # Define ranger scratchpad
-for_window [instance="ranger"] floating enable, resize set 1200 600, border pixel 5, move scratchpad, move position 300px 470px
+for_window [instance="ranger"] floating enable, resize set 1600 600, border pixel 5, move scratchpad, move position 150px 470px
 bindsym $mod+e [instance="ranger"] scratchpad show
 # Define terminal scratchpad
 for_window [instance="dropdown"] floating enable, resize set 1200 600, border pixel 5, move scratchpad, move position 300px 20px
 bindcode $mod+49 [instance="dropdown"] scratchpad show
 #bindsym $mod+grave [instance="dropdown"] scratchpad show
-# Define im scratchpad
-for_window [class="Pidgin"] floating enable, resize set 1200 600, border pixel 5, move scratchpad, move position 300px 470px
-bindsym $mod+i [class="Pidgin"] scratchpad show
 
 # Assign apps to specific workspaces
 assign [class="Thunderbird"] $wsMail
 assign [class="Evolution"] $wsMail
+assign [class="Pidgin"] $wsMail
 assign [class="Slack"] $wsMail
 assign [class="Google-chrome"] $wsWeb
 assign [class="Firefox"] $wsWeb
@@ -260,7 +261,6 @@ exec --no-startup-id $kbdlayout us
 exec --no-startup-id copyq
 exec --no-startup-id synergy
 exec --no-startup-id nm-applet
-exec mintupdate-launcher
 exec xfce4-notes
 exec volumeicon
 exec thunderbird
