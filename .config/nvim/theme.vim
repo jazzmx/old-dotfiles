@@ -42,7 +42,7 @@ let g:lightline = { 'colorscheme': 'jellybeans' }
 " FZF
 let g:fzf_colors = {
   \ 'fg':      ['fg', 'GruvboxGray'],
-  \ 'bg':      ['bg', 'Normal'],
+  \ 'bg':      ['bg', 'GruvboxBg0'],
   \ 'hl':      ['fg', 'GruvboxRed'],
   \ 'fg+':     ['fg', 'GruvboxGreen'],
   \ 'bg+':     ['bg', 'GruvboxBg1'],

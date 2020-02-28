@@ -26,7 +26,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
 Plug 'mhinz/vim-startify'
 Plug 'ahonn/resize.vim'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 Plug 'voldikss/vim-floaterm'
 
 "--------------------------
