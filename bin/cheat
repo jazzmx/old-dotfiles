@@ -20,13 +20,16 @@ while [ "$1" ]; do
    shift
 done
 
+
 if [ "$op" = "edit" ]; then
    [ ! -d "$CHEAT_DIR" ] && mkdir -p $CHEAT_DIR
    ${EDITOR:-vi} $CHEAT_DIR/$file
    echo "$CHEAT_DIR/$file"
 else
+   # Use bat if available
+   viewer=$([ "$(which bat)" ] && echo bat || echo ${PAGER:-less})
    [ -f "$CHEAT_DIR/$file" ] || { echo "Could not find '$file' cheatsheet!"; exit 1; }
-   less "$CHEAT_DIR/$file"
+   $viewer "$CHEAT_DIR/$file"
    echo
 fi
 
