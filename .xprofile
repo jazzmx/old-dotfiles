@@ -1,0 +1,12 @@
+#!/bin/sh
+
+
+xrandr --output HDMI2 --primary --auto --output HDMI3 --auto --right-of HDMI2
+setxkbmap -layout us,ca -variant ,multix -option grp:alt_shift_toggle
+numlockx on
+copyq &
+volumeicon &
+unclutter &
+nm-applet &
+xfce4-notes &
+slack &

@@ -14,8 +14,10 @@ set $logout    $HOME/bin/session
 set $kbdlayout $HOME/bin/kbdlayout
 set $websearch $HOME/bin/websearch
 # Workspaces
-set $out1      DisplayPort-0
-set $out2      DVI-0
+#set $out1      DisplayPort-0
+#set $out2      DVI-0
+set $out1      HDMI2
+set $out2      HDMI3
 set $wsMail    "Mail"
 set $wsWeb     "Web"
 set $wsMusic   "Music"
@@ -240,6 +242,7 @@ for_window [instance="ranger"] floating enable, resize set 1600 600, border pixe
 bindsym $mod+e [instance="ranger"] scratchpad show
 # Define terminal scratchpad
 for_window [instance="dropdown"] floating enable, resize set 1200 600, border pixel 5, move scratchpad, move position 300px 20px
+bindsym $mod+Space [instance="dropdown"] scratchpad show
 bindcode $mod+49 [instance="dropdown"] scratchpad show
 #bindsym $mod+grave [instance="dropdown"] scratchpad show
 
@@ -253,17 +256,18 @@ assign [class="Firefox"] $wsWeb
 for_window [class="Spotify"] move to workspace $wsMusic
 for_window [class="Termite"] exec $kbdlayout us
 
-exec_always --no-startup-id numlockx on
-exec --no-startup-id davmail $HOME/.config/davmail/davmail.properties
+# exec --no-startup-id xrandr --output HDMI2 --primary --auto --output HDMI3 --auto --right-of HDMI2
+# exec_always --no-startup-id numlockx on
+# exec --no-startup-id davmail $HOME/.config/davmail/davmail.properties
 exec --no-startup-id $TERMINAL --name ranger -e ranger
 exec --no-startup-id $TERMINAL --name dropdown
-exec --no-startup-id $kbdlayout us
-exec --no-startup-id copyq
-exec --no-startup-id synergy
-exec --no-startup-id nm-applet
-exec xfce4-notes
-exec volumeicon
-exec thunderbird
-exec slack
-exec pidgin
+# exec --no-startup-id $kbdlayout us
+# exec --no-startup-id copyq
+# exec --no-startup-id synergy
+# exec --no-startup-id nm-applet
+# exec xfce4-notes
+# exec volumeicon
+# exec thunderbird
+# exec slack
+# exec pidgin
 
