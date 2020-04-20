@@ -137,15 +137,15 @@ bindsym $mod+bar split h
 # split in vertical orientation
 bindsym $mod+minus split v
 # enter fullscreen mode for the focused container
-bindsym $mod+w fullscreen toggle
+#bindsym $mod+Shift+Space fullscreen toggle
 # focus the parent container
-bindsym $mod+p focus parent
+#bindsym $mod+Shift+p focus parent
 # toggle tiling / floating
 bindsym $mod+f floating toggle
 # toggle layout tabbed / split
 bindsym $mod+t layout toggle tabbed split
 # toggle split layout horizontal / vertical
-bindsym $mod+s layout toggle split
+bindsym $mod+$alt+s layout toggle split
 # toggle sticky floating window
 bindsym $mod+Shift+s sticky toggle
 # toggle focus between tiling / floating containers
@@ -196,29 +196,29 @@ bindsym $mod+$alt+Tab move workspace to output right
 # CUSTOM ACTIONS ====================================================
 #
 # reload the configuration file
-bindsym $mod+Shift+c   reload
+bindsym $mod+$alt+c    reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r   restart
+bindsym $mod+$alt+r    restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+q   exec $logout
+bindsym $mod+$alt+q    exec $logout
+# lock screen
+bindsym $mod+$alt+Escape    exec --no-startup-id i3lock -e -f -c 000000 -i $wallpaper
 # kill focused window
 bindsym $mod+q         kill
 # start a terminal
 bindsym $mod+Return    exec $TERMINAL
 # start a browser
-bindsym $mod+b         exec $BROWSER
-# lock screen
-bindsym $mod+Escape    exec --no-startup-id i3lock -e -f -c 000000 -i $wallpaper
+bindsym $mod+Shift+w   exec $BROWSER
 # application menu (program launcher)
-bindsym $mod+a         exec "rofi -modi run,drun,ssh -show run"
+bindsym $mod+p         exec "rofi -modi run,drun,ssh -show run"
 # application menu (program launcher)
-bindsym $mod+Shift+a   exec "rofi -modi run,drun,ssh -show drun"
+bindsym $mod+Shift+p   exec "rofi -modi run,drun,ssh -show drun"
 # Alt-tab for opened windows menu
 bindsym $alt+Tab       exec rofi -modi window -show window -show-icons
 # Switch keyboard layout
 bindsym $mod+z         exec --no-startup-id $kbdlayout toggle
 # Web search dmenu script
-bindsym $mod+g         exec --no-startup-id $websearch
+bindsym $mod+w         exec --no-startup-id $websearch
 # Media keys
 bindsym XF86Explorer   exec spacefm
 bindsym XF86HomePage   exec $BROWSER
@@ -242,7 +242,7 @@ for_window [instance="ranger"] floating enable, resize set 1600 600, border pixe
 bindsym $mod+e [instance="ranger"] scratchpad show
 # Define terminal scratchpad
 for_window [instance="dropdown"] floating enable, resize set 1200 600, border pixel 5, move scratchpad, move position 300px 20px
-bindsym $mod+Space [instance="dropdown"] scratchpad show
+#bindsym $mod+space [instance="dropdown"] scratchpad show
 bindcode $mod+49 [instance="dropdown"] scratchpad show
 #bindsym $mod+grave [instance="dropdown"] scratchpad show
 

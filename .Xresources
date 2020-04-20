@@ -1,31 +1,74 @@
 ! ~/.Xresource
+!
+!!! Gruvbox theme
+! hard contrast: *background: #1d2021
+*background: #282828
+! soft contrast: *background: #32302f
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
+! Extended 256 color palette
+URxvt.color24:  #076678
+URxvt.color66:  #427b58
+URxvt.color88:  #9d0006
+URxvt.color96:  #8f3f71
+URxvt.color100: #79740e
+URxvt.color108: #8ec07c
+URxvt.color109: #83a598
+URxvt.color130: #af3a03
+URxvt.color136: #b57614
+URxvt.color142: #b8bb26
+URxvt.color167: #fb4934
+URxvt.color175: #d3869b
+URxvt.color208: #fe8019
+URxvt.color214: #fabd2f
+URxvt.color223: #ebdbb2
+URxvt.color228: #f2e5bc
+URxvt.color229: #fbf1c7
+URxvt.color230: #f9f5d7
+URxvt.color234: #1d2021
+URxvt.color235: #282828
+URxvt.color236: #32302f
+URxvt.color237: #3c3836
+URxvt.color239: #504945
+URxvt.color241: #665c54
+URxvt.color243: #7c6f64
+URxvt.color244: #928374
+URxvt.color245: #928374
+URxvt.color246: #a89984
+URxvt.color248: #bdae93
+URxvt.color250: #d5c4a1
 
-! FlatColor theme
-*.foreground:   #cbe3e7
-*.background:   #1e1c31
-*.cursorColor:  #fbfcfc
-! black
-*.color0:       #565575
-*.color8:       #100e23
-! red
-*.color1:       #ff8080
-*.color9:       #ff5458
-! green
-*.color2:       #95ffa4
-*.color10:      #62d196
-! yellow
-*.color3:       #ffe9aa
-*.color11:      #ffb378
-! blue
-*.color4:       #91ddff
-*.color12:      #65b2ff
-! magenta
-*.color5:       #c991e1
-*.color13:      #906cff
-! cyan
-*.color6:       #aaffe4
-*.color14:      #63f2f1
-! white
-*.color7:       #cbe3e7
-*.color15:      #a6b3cc
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+!                  bg       border   separator
+rofi.color-window: #282828, #458588, #fabd2f
+!                  bg       fg       bg-alt   hl-bg    hl-fg
+!rofi.color-normal: #1d2021, #ebdbb2, #282828, #504945, #fbf1c7
+rofi.color-normal: #1d2021, #ebdbb2, #282828, #458588, #fbf1c7
+rofi.color-active: #83a598, #1d2021, #d79921, #fabd2f, #1d2021
+rofi.color-urgent: #cc241d, #1d2021, #cc241d, #fb4934, #1d2021
 

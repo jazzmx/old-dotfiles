@@ -1,0 +1,27 @@
+#!/bin/sh
+
+
+bspc monitor HDMI2 -d Mail I II III IV V
+bspc monitor HDMI3 -d Web VI VII VIII IX X
+
+bspc config top_padding   24
+bspc config border_width  3
+bspc config window_gap    8
+
+bspc config split_ratio           0.52
+bspc config borderless_monocle    true
+bspc config gapless_monocle       true
+bspc config focus_follows_pointer true
+
+# bspc rule -a Gimp desktop='^8' state=floating follow=on
+# bspc rule -a Chromium desktop='^2'
+# bspc rule -a mplayer2 state=floating
+# bspc rule -a Kupfer.py focus=on
+# bspc rule -a Screenkey manage=off
+
+# Dropdown
+bspc rule -a dropdown sticky=on state=floating hidden=on
+$TERMINAL --class dropdown -e "bash -i" &
+# Ranger
+bspc rule -a ranger sticky=on state=floating hidden=on
+$TERMINAL --class ranger -e "bash -i" &

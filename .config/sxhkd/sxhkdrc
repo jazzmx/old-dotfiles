@@ -1,0 +1,162 @@
+#!/bin/sh
+# wm independent hotkeys
+#
+WALLPAPER=$HOME/Pictures/Wallpapers/linux-human-imagenes.png
+
+# terminal emulator
+super + Return
+	$TERMINAL
+
+# browser
+super + shift + w
+	$BROWSER
+
+# Open web search menu
+super + w
+	$HOME/bin/websearch
+
+# program launcher
+super + {_,shift + }p
+	rofi -modi run,drun,ssh -show {run,drun}
+
+# Dopdown scratchpad
+super + shift + Return
+	scratchpad dropdown
+
+# Ranger scratchpad
+super + alt + Return
+	scratchpad ranger
+
+# Alt-tab - Cycle opened windows
+alt + Tab
+	rofi -modi window -show window -show-icons
+
+# Screen lock
+super + alt + Escape
+	i3lock -e -f -c 000000 -i .config/wall.png
+
+# Logout/shutdown/reboot
+super + alt + q
+	$HOME/bin/session
+
+# reload sxhkd configuration
+super + alt + c
+	pkill -USR1 -x sxhkd
+
+
+########################################################3
+# BSPWM Bindings
+########################################################3
+
+# restart bspwm
+super + alt + r
+	bspc wm -r
+
+#
+# Window state/flags
+#
+
+# close and kill
+super + {_,shift + }q
+	bspc node -{c,k}
+
+# Toggle floating on and off
+super + space
+	bspc node focused -t \~floating
+
+# set the window fullscreen
+super + shift + space
+	bspc node focused -t \~fullscreen
+
+# Make a window sticky/non-sticky
+super + shift + s
+	bspc node -g sticky={on,off}
+
+# set the window state
+super + shift + {t,y}
+	bspc node -t {tiled,pseudo_tiled}
+
+# set the node flags
+super + ctrl + {m,l,z}
+	bspc node -g {marked,locked,private}
+
+# alternate between the tiled and monocle layout
+super + shift + l
+	bspc desktop -l next
+
+#
+# Focus
+#
+
+# Focus on window in direction
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+# focus the next/previous node in the current desktop
+#super + bracket{left,right}
+#	bspc node -f {prev,next}.local
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# focus the node for the given path jump
+#super + {p,b,comma,period}
+#	bspc node -f @{parent,brother,first,second}
+
+#
+# Swap / Move
+#
+
+# Swap window in direction
+super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# swap the current node and the biggest local node
+super + g
+	bspc node -s biggest.local || bspc node -s next.local
+
+# swap the current node and the biggest node
+#super + g
+#	bspc node -s biggest
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+#
+# Resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+#
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+

@@ -1,8 +1,13 @@
 #!/bin/sh
 
-
 xrandr --output HDMI2 --primary --auto --output HDMI3 --auto --right-of HDMI2
 setxkbmap -layout us,ca -variant ,multix -option grp:alt_shift_toggle
+setxkbmap -option caps:escape
+xsetroot -cursor_name left_ptr
+xrdb -load ~/.Xresources
+
+barriers -f -d INFO --config $HOME/.config/barrier/barrier.conf --enable-crypto &
+feh --bg-fill ~/.config/wall.png
 numlockx on
 copyq &
 volumeicon &
@@ -10,3 +15,4 @@ unclutter &
 nm-applet &
 xfce4-notes &
 slack &
+
