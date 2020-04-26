@@ -18,11 +18,9 @@ fi
 
 # set PATH so it includes user's private bin directories
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-
 export TERMINAL=termite
 export BROWSER=firefox
 export EDITOR=vim
-#export PAGER='/usr/bin/less'
 export PAGER='/usr/bin/bat'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export LESS='-isrM -F -X'

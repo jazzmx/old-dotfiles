@@ -1,9 +1,10 @@
 ! ~/.Xresource
 !
 !!! Gruvbox theme
-! hard contrast: *background: #1d2021
-*background: #282828
-! soft contrast: *background: #32302f
+! hard contrast:   #1d2021
+! medium contrast: #282828
+! soft contrast:   #32302f
+*background: #1d2021
 *foreground: #ebdbb2
 ! Black + DarkGrey
 *color0:  #282828
@@ -29,7 +30,7 @@
 ! LightGrey + White
 *color7:  #a89984
 *color15: #ebdbb2
-! Extended 256 color palette
+! Extended 256 color palette 
 URxvt.color24:  #076678
 URxvt.color66:  #427b58
 URxvt.color88:  #9d0006

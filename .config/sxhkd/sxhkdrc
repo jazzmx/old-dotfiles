@@ -1,31 +1,35 @@
 #!/bin/sh
-# wm independent hotkeys
 #
-WALLPAPER=$HOME/Pictures/Wallpapers/linux-human-imagenes.png
+# sxhkd key bindings
+#
 
+
+########################################################
+# General bindings
+########################################################
 # terminal emulator
 super + Return
 	$TERMINAL
+
+# Dopdown terminal
+super + shift + Return
+	scratchpad dropdown
+
+# Ranger terminal
+super + alt + Return
+	scratchpad ranger
+
+# Web search menu
+super + w
+	$HOME/bin/websearch
 
 # browser
 super + shift + w
 	$BROWSER
 
-# Open web search menu
-super + w
-	$HOME/bin/websearch
-
 # program launcher
 super + {_,shift + }p
 	rofi -modi run,drun,ssh -show {run,drun}
-
-# Dopdown scratchpad
-super + shift + Return
-	scratchpad dropdown
-
-# Ranger scratchpad
-super + alt + Return
-	scratchpad ranger
 
 # Alt-tab - Cycle opened windows
 alt + Tab
@@ -44,10 +48,9 @@ super + alt + c
 	pkill -USR1 -x sxhkd
 
 
-########################################################3
+########################################################
 # BSPWM Bindings
-########################################################3
-
+########################################################
 # restart bspwm
 super + alt + r
 	bspc wm -r
@@ -60,28 +63,28 @@ super + alt + r
 super + {_,shift + }q
 	bspc node -{c,k}
 
-# Toggle floating on and off
+# Toggle fullscreen
 super + space
-	bspc node focused -t \~floating
-
-# set the window fullscreen
-super + shift + space
 	bspc node focused -t \~fullscreen
 
-# Make a window sticky/non-sticky
+# Toggle floating
+super + shift + space
+	bspc node focused -t \~floating
+
+# Toggle sticky
 super + shift + s
 	bspc node -g sticky={on,off}
 
 # set the window state
-super + shift + {t,y}
+super + {t,shift + t}
 	bspc node -t {tiled,pseudo_tiled}
 
 # set the node flags
-super + ctrl + {m,l,z}
+super + ctrl + {m,l,p}
 	bspc node -g {marked,locked,private}
 
 # alternate between the tiled and monocle layout
-super + shift + l
+super + m
 	bspc desktop -l next
 
 #
@@ -93,11 +96,11 @@ super + {h,j,k,l}
 	bspc node -f {west,south,north,east}
 
 # focus the next/previous node in the current desktop
-#super + bracket{left,right}
-#	bspc node -f {prev,next}.local
+super + bracket{left,right}
+	bspc node -f {prev,next}.local
 
 # focus the next/previous desktop in the current monitor
-super + bracket{left,right}
+super + shift + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
@@ -140,7 +143,6 @@ super + {Left,Down,Up,Right}
 super + alt + {h,j,k,l}
 	bspwm-resize.sh {west,south,north,east}
 
-
 #
 # preselect
 #
@@ -152,4 +154,32 @@ super + ctrl + {h,j,k,l}
 # preselect the ratio
 super + ctrl + {1-9}
 	bspc node -o 0.{1-9}
+
+
+########################################################
+# Media keys
+########################################################
+XF86Explorer
+	scratchpad ranger
+XF86HomePage
+	$BROWSER
+XF86Calculator
+	gnome-calculator
+XF86Tools
+	spotify
+XF86AudioPlay
+	playerctl play-pause
+XF86AudioStop
+	playerctl stop
+XF86AudioPrev
+	playerctl previous
+XF86AudioNext
+	playerctl next
+XF86AudioMute
+	pactl set-sink-mute 0 toggle
+XF86AudioLowerVolume
+	pactl set-sink-volume 0 -5%
+XF86AudioRaiseVolume
+	pactl set-sink-volume 0 +5%
+
 

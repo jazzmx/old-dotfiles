@@ -1,11 +1,10 @@
 
 alias cd-='cd -'
 alias cd..='cd ..'
-alias .1='cd ..'
-alias .2='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias .5='cd ../../../../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 alias ls='ls --color=auto'
 alias ll='ls -alhF'
@@ -65,7 +64,7 @@ function vix {
    touch $1; chmod 751 $1; vi $1
 }
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 alias xipuc='source ~/work/proj/xip3901uc/env/setenv'
 alias xipdc='source ~/work/proj/xip3901dc/env/setenv'

@@ -3,7 +3,8 @@
    editcfg = config --global -e
    aliases = config --get-regexp alias
 
-   b = branch
+   ap = add --patch
+   b  = branch
    ba = branch -a
    br = branch -r
    s  = status
