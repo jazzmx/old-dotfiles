@@ -2,20 +2,6 @@
 #set -o vi
 
 PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w]\n\[\e[1;33m\]$(__git_ps1 "(%s)")\$\[\e[0m\] '
-# PROMPT_COMMAND=__prompt_command
-# __prompt_command() {
-#    # Add status of previous return code
-#    local EXIT=$?
-#    local RCol='\[\e[0m\]'
-#    local Gre='\[\e[0;32m\]'
-#    local Red='\[\e[0;31m\]'
-#    local BRed='\[\e[1;31m\]'
-#    local BYel='\[\e[1;33m\]'
-#    local BBlu='\[\e[1;34m\]'
-#    PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w]\n\[\e[1;33m\]$(__git_ps1 "(%s)")'
-#    [ $EXIT != 0 ] && PS1+="${BRed} \$${RCol} " || PS1+="${BBlu} \$${RCol} "
-# }
-
 
 # Make CapsLock a Escape key
 setxkbmap -option caps:escape
@@ -25,14 +11,9 @@ case "$TERM" in
    xterm) TERM=xterm-256color ;;
 esac
 
-# Configure fzf fuzzy search
-#export FZF_DEFAULT_OPTS='--height 40% --border --reverse'
-# --files: List files that would be searched but do not search
-# --no-ignore: Do not respect .gitignore, etc...
-# --hidden: Search hidden files and folders
-# --follow: Follow symlinks
-# --smart-case: Searches case insensitively if pattern is all lowercase. Case sensitive otherwise.
-# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+#
+# FZF Config
+#
 export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --follow --smart-case --glob "!.git/*"'
 
 export FZF_DEFAULT_OPTS="
@@ -55,3 +36,14 @@ export FZF_DEFAULT_OPTS="
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 bind -x '"\C-p": vim $(fzf);'
+
+# find-in-file
+# usage: fif <SEARCH_TERM>
+fif() {
+  if [ ! "$#" -gt 0 ]; then
+    echo "Need a string to search for!";
+    return 1;
+  fi
+  rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --preview "rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
