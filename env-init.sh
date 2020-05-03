@@ -13,24 +13,22 @@ gettext
 libxml2-utils
 libevent-dev
 libncurses5-dev
-exuberant-ctags
-xsel
-colordiff
 libtool
 libtool-bin
-unzip
-schroot
-debootstrap
-samba
 libgtk-3-dev
 python-dev
 python-pip
 python3-dev
 python3-pip
-sublime-text
+unzip
+samba
+xsel
+schroot
+debootstrap
+colordiff
+exuberant-ctags
 meld
 gtkterm
-minicom
 spotify-client
 "
 sudo apt install $PKGLIST
@@ -59,12 +57,22 @@ BUILD_DIR="$HOME/build"
 mkdir -p $BIN_DIR $BUILD_DIR
 cd $BUILD_DIR
 
-# ranger
-git clone https://github.com/ranger/ranger.git
-(
-  cd ranger
-  sudo make prefix=$PREFIX install
-)
+# Packages to install
+# bspwm
+# sxhkd
+# rofi
+# tmux
+# lf
+# bat
+# fzf
+# ripgrep
+# neovim
+# flameshot
+# copyq
+# rclone
+# nerd fonts
+# dterm
+# tabbed (suckless)
 
 # tmux
 git clone https://github.com/tmux/tmux.git
@@ -74,21 +82,6 @@ git clone https://github.com/tmux/tmux.git
   ./configure && make && sudo make prefix=$PREFIX install
 )
 
-# xcape
-git clone https://github.com/alols/xcape.git
-(
-  cd xcape
-  make && sudo make prefix=$PREFIX install
-)
-
-# Powerline fonts
-git clone https://github.com/powerline/fonts.git
-(
-  cd fonts
-  ./install.sh
-)
-rm -rf fonts
-
 # gitsh
 curl -OL https://github.com/thoughtbot/gitsh/releases/download/v0.12/gitsh-0.12.tar.gz
 (
@@ -97,9 +90,9 @@ curl -OL https://github.com/thoughtbot/gitsh/releases/download/v0.12/gitsh-0.12.
 )
 
 # vte-ng
-sudo apt install autoconf libglib2.0-dev gtk-doc-tools
 git clone https://github.com/thestinger/vte-ng.git
 (
+  sudo apt install autoconf libglib2.0-dev gtk-doc-tools
   cd vte-ng
   sh autogen.sh
   make && sudo make prefix=$PREFIX install
@@ -117,26 +110,5 @@ git clone --depth 1 https://github.com/junegunn/fzf.git
 (
   cd fzf
   ./install
-)
-
-# rtags
-git clone --recursive https://github.com/Andersbakken/rtags.git
-(
-  cd rtags
-  rm -rf build
-  mkdir build && cd build
-  cmake ..
-  make && sudo make prefix=$PREFIX install
-)
-
-# cquery
-git clone --recursive https://github.com/cquery-project/cquery.git
-(
-  cd cquery
-  rm -rf build
-  mkdir build && cd build
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-  cmake --build .
-  cmake --build . --target install
 )
 
