@@ -1,0 +1,43 @@
+[user]
+   name = Maxime Langlois
+   email = maxime.langlois@grassvalley.com
+
+[color]
+   ui = always
+
+[core]
+   pager = less -FRX
+
+[diff]
+   tool = vimdiff
+
+[difftool]
+   # Be able to abort all diffs with `:cq` or `:cquit`
+   trustExitCode = true
+   prompt = false
+
+[gitsh]
+   noGreeting = true
+   defaultCommand = :echo && status --short --branch && :echo
+   prompt = "\n%d\n%D%c(%b)%w%#"
+
+[include]
+   path = ~/.config/git/alias
+
+[pull]
+   rebase = true
+
+[push]
+   default = simple
+
+[filter "lfs"]
+   required = true
+   clean = git-lfs clean -- %f
+   smudge = git-lfs smudge -- %f
+   process = git-lfs filter-process
+
+[merge]
+   tool = vimdiff
+   ; conflictStyle = diff3
+
+[mergetool]
