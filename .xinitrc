@@ -11,11 +11,10 @@
 [ -f /etc/xprofile ] && . /etc/xprofile
 [ -f ~/.xprofile ] && . ~/.xprofile
 
-setxkbmap -layout us,ca -variant ,multix -option grp:alt_shift_toggle
-setxkbmap -option caps:escape
+setxkbmap -layout us,ca -variant ,multix -option grp:alt_shift_toggle -option ctrl:nocaps
 # Change from ugly 'X' cursor when hovering over background
 
-polybar bar &
+~/.config/polybar/launch.sh &
 sxhkd &
 exec bspwm
 
