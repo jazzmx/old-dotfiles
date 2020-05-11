@@ -2,19 +2,9 @@
 " vim sensible defaults
 "
 
-" default updatetime 4000ms is not good for async update
-set updatetime=100
-
-" from COC plugin
-set hidden
-set cmdheight=2
-set shortmess+=c
-set signcolumn=yes
-
 "set noshowmode
 set number        " show line numbers
 set cursorline    " highlight current line
-"set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
 set nowritebackup
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
@@ -28,23 +18,34 @@ set mouse=a
 set switchbuf=usetab,newtab
 " Display whitespace, eol, etc...
 set list
-"set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set spelllang=en_us,fr_ca
+set undodir=~/.config/nvim/undo
+set undofile
+set nojoinspaces  " Use only 1 space after . when joining lines
+
+" default updatetime 4000ms is not good for async update
+set updatetime=100
+
+" For completion
+set hidden
+set cmdheight=2
+set shortmess+=c
+set signcolumn=yes
 
 " ==============================================
 " Search settings
-"
-"set gdefault      " Never have to type /g at the end of search / replace again
-set ignorecase    " case insensitive searching...
+set ignorecase    " case insensitive search
 set smartcase     " ... unless we type a capital
 set hlsearch      " highlight matches
+set incsearch     " highlight as we type
 set showmatch     " highlight matching [{()}]
+set gdefault      " global search flag on by default
 
 " ==============================================
 " Editor settings
-"
-set pastetoggle=<F2> " go in paste mode with autoindent off 
+" set pastetoggle=<F2> " go in paste mode with autoindent off 
 set nowrap
-"set expandtab       " tabs are spaces
+set expandtab       " tabs are spaces
 set tabstop=3       " number of visual spaces per tab
 set softtabstop=3   " number of spaces in tab when editing
 set shiftwidth=3
@@ -55,15 +56,20 @@ set smartindent
 "set cindent
 set cinoptions+=g0
 "set complete=.,b,u,]
-set completeopt=menuone,preview
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+"set completeopt=menuone,preview
 set wildmode=longest,list:longest
-set clipboard+=unnamed
+set clipboard=unnamed
+" Highlight 81st column on lines that reached it
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
 
 " ==============================================
 " Splits settings
-set splitbelow      " Open new horizontal split on the bottom
-set splitright      " Open new vertical split to the right
-set diffopt+=vertical " Always use vertical diffs
+set splitbelow splitright
+set fillchars+=vert:\  " Empty vert split bar
+set diffopt+=vertical  " Always use vert diffs
 
 " ==============================================
 " Local vimrc
