@@ -3,8 +3,8 @@
 
 PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u\[\e[0m\] \[\e[1;34m\][\w]\n\[\e[1;33m\]$(__git_ps1 "(%s)")\$\[\e[0m\] '
 
-# Make CapsLock a Escape key
-setxkbmap -option caps:escape
+# Make CapsLock a Control key
+setxkbmap -option ctrl:nocaps
 
 # Set proper TERM
 case "$TERM" in
@@ -40,6 +40,16 @@ export FZF_DEFAULT_OPTS="
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 bind -x '"\C-p": vim $(fzf);'
 
+
+#
+# NPM config
+#
+export PATH="$HOME/.local/node_modules/bin:$PATH"
+export npm_config_prefix=~/.local/node_modules
+export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME:-.config}/npm/config
+export NPM_CONFIG_CACHE=${XDG_CACHE_HOME:-.cache}/npm
+
+# Make dir and cd into it
 mkd() {
    mkdir -p $1 && cd $1
 }
@@ -163,6 +173,11 @@ ex=:\
 *.svgz=:\
 *.mng=:\
 *.pcx=:\
+*.xcf=:\
+*.xwd=:\
+*.yuv=:\
+*.cgm=:\
+*.emf=:\
 *.mov=:\
 *.mpg=:\
 *.mpeg=:\
@@ -170,6 +185,8 @@ ex=:\
 *.mkv=:\
 *.webm=:\
 *.ogm=:\
+*.ogv=:\
+*.ogx=:\
 *.mp4=:\
 *.m4v=:\
 *.mp4v=:\
@@ -178,21 +195,13 @@ ex=:\
 *.nuv=:\
 *.wmv=:\
 *.asf=:\
-*.rm=:\
-*.rmvb=:\
-*.flc=:\
+*.rm=:\
+*.rmvb=:\
+*.flc=:\
 *.avi=:\
-*.fli=:\
-*.flv=:\
-*.gl=:\
-*.dl=:\
-*.xcf=:\
-*.xwd=:\
-*.yuv=:\
-*.cgm=:\
-*.emf=:\
-*.ogv=:\
-*.ogx=:\
+*.fli=:\
+*.flv=:\
+*.gl=:\
 *.aac=:\
 *.au=:\
 *.flac=:\
@@ -202,13 +211,13 @@ ex=:\
 *.mka=:\
 *.mp3=:\
 *.mpc=:\
+*.oga=:\
 *.ogg=:\
 *.ra=:\
 *.wav=:\
-*.oga=:\
-*.opus=:\
-*.spx=:\
-*.xspf=:\
+*.opus=:\
+*.spx=:\
+*.xspf=:\
 *.pdf=:\
 *.nix=:\
 *.vimrc=:\

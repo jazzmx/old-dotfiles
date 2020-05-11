@@ -56,9 +56,11 @@ alias top='htop'
 alias sudo='sudo '
 
 # Edit config files
-alias rc-vim='vi ~/.config/nvim/init.vim'
-alias rc-i3='vi ~/.config/i3/config'
-alias rc-ranger='vi ~/.config/ranger/rc.conf'
+alias vimrc='vi ~/.config/nvim/init.vim'
+alias tmuxrc='vi ~/.config/tmux/tmux.conf'
+alias bspwmrc='vi ~/.config/bspwm/bspwmrc'
+alias sxhkd='vi ~/.config/sxhkd/sxhkdrc'
+alias lfrc='vi ~/.config/lf/lfrc'
 
 function vix {
    touch $1; chmod 751 $1; vi $1
