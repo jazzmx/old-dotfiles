@@ -104,7 +104,7 @@ super + shift + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-super + {grave,Tab}
+super + shift + {6,Tab}
 	bspc {node,desktop} -f last
 
 # focus or send to the given desktop
@@ -119,12 +119,18 @@ super + {_,shift + }{1-9,0}
 # Swap / Move / Resize
 #
 
-# Swap window in direction
-super + shift + {h,j,k,l}
+# Mouse resize using super + right mouse click
+
+# Move node
+super + alt + {h,j,k,l}
 	bspc node -s {west,south,north,east}
 
-# swap the current node and the biggest local node
-super + g
+# Resize node
+super + shift + {h,j,k,l}
+	~/.config/bspwm/resize.sh {west,south,north,east}
+
+# Swap current node and biggest local node
+super + alt + b
 	bspc node -s biggest.local || bspc node -s next.local
 
 # swap the current node and the biggest node
@@ -132,16 +138,12 @@ super + g
 #	bspc node -s biggest
 
 # send the newest marked node to the newest preselected node
-super + y
+super + shift + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-
-# Resize
-super + alt + {h,j,k,l}
-	bspwm-resize.sh {west,south,north,east}
 
 #
 # preselect
