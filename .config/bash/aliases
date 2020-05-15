@@ -56,7 +56,7 @@ alias top='htop'
 alias sudo='sudo '
 
 # Edit config files
-alias vimrc='vi ~/.config/nvim/init.vim'
+alias vimrc='cd ~/.config/nvim && vi init.vim'
 alias tmuxrc='vi ~/.config/tmux/tmux.conf'
 alias bspwmrc='vi ~/.config/bspwm/bspwmrc'
 alias sxhkd='vi ~/.config/sxhkd/sxhkdrc'
