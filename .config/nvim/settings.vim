@@ -45,7 +45,7 @@ set gdefault      " global search flag on by default
 " Editor settings
 " set pastetoggle=<F2> " go in paste mode with autoindent off 
 set nowrap
-set expandtab       " tabs are spaces
+set expandtab       " tabs are spaces by default
 set tabstop=3       " number of visual spaces per tab
 set softtabstop=3   " number of spaces in tab when editing
 set shiftwidth=3
@@ -57,13 +57,10 @@ set smartindent
 set cinoptions+=g0
 "set complete=.,b,u,]
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-"set completeopt=menuone,preview
+set completeopt=menuone,noinsert,preview
 set wildmode=longest,list:longest
 set clipboard=unnamed
-" Highlight 81st column on lines that reached it
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
+set clipboard+=unnamedplus
 
 " ==============================================
 " Splits settings

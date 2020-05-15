@@ -2,56 +2,63 @@
 " Relative numbering
 " Toggle relative numbering, and set to absolute on loss of focus or insert mode
 "
-set rnu
-function! ToggleNumbersOn()
-    set nonu
-    set rnu
-endfunction
-function! ToggleRelativeOn()
-    set nornu
-    set nu
-endfunction
-autocmd FocusLost * call ToggleRelativeOn()
-autocmd FocusGained * call ToggleRelativeOn()
-autocmd InsertEnter * call ToggleRelativeOn()
-autocmd InsertLeave * call ToggleRelativeOn()
+" set rnu
+" function! ToggleNumbersOn()
+"     set nonu
+"     set rnu
+" endfunction
+" function! ToggleRelativeOn()
+"     set nornu
+"     set nu
+" endfunction
+" autocmd FocusLost * call ToggleRelativeOn()
+" autocmd FocusGained * call ToggleRelativeOn()
+" autocmd InsertEnter * call ToggleRelativeOn()
+" autocmd InsertLeave * call ToggleRelativeOn()
 
-
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 "
 " FloatingWindowCentered
 " Creates a floating window with a most recent buffer to be used
-function! FloatingWindowCentered()
-  " 60% of the height
-  let height = float2nr(&lines * 0.6)
-  " 60% of the width
-  let width = float2nr(&columns * 0.6)
-  " Vertical position
-  let vpos = float2nr(((&lines - height) / 2) - 1)
-  " Horizontal position
-  let hpos = float2nr((&columns - width) / 2)
+" function! FloatingWindowCentered()
+"   " 60% of the height
+"   let height = float2nr(&lines * 0.6)
+"   " 60% of the width
+"   let width = float2nr(&columns * 0.6)
+"   " Vertical position
+"   let vpos = float2nr(((&lines - height) / 2) - 1)
+"   " Horizontal position
+"   let hpos = float2nr((&columns - width) / 2)
 
-  let opts = {
-    \ 'relative': 'editor',
-    \ 'row': vpos,
-    \ 'col': hpos,
-    \ 'width': width,
-    \ 'height': height
-    \ }
-  " creates a scratch, unlisted, new, empty, unnamed buffer
-  " to be used in the floating window
-  let buf = nvim_create_buf(v:false, v:true)
-  " open the new window, floating, and enter to it
-  call nvim_open_win(buf, v:true, opts)
-endfunction
+"   let opts = {
+"     \ 'relative': 'editor',
+"     \ 'row': vpos,
+"     \ 'col': hpos,
+"     \ 'width': width,
+"     \ 'height': height
+"     \ }
+"   " creates a scratch, unlisted, new, empty, unnamed buffer
+"   " to be used in the floating window
+"   let buf = nvim_create_buf(v:false, v:true)
+"   " open the new window, floating, and enter to it
+"   call nvim_open_win(buf, v:true, opts)
+" endfunction
 
 " Function
 " Export mapping to file
 "
-function ExportMappings(file)
-   redir! > a:file
-   silent verbose map
-   redir END
-endfunction
+" function ExportMappings(file)
+"    redir! > a:file
+"    silent verbose map
+"    redir END
+" endfunction
 
 function! CHeaderCurrentFile()
   if exists("b:current_file")
@@ -91,13 +98,14 @@ function! CHeaderToggle()
   endif
 endfun
 
-" <Tab> indents if at the beginning of a line; otherwise does completion
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-n>"
-  endif
-endfunction
+" Active/inactive splits decorations
+augroup splitfocus
+    " Make focused split stands out
+    autocmd InsertLeave,VimEnter,WinEnter * setlocal cursorline
+    autocmd InsertEnter,WinLeave * setlocal nocursorline
+    " if has('statusline')
+    "   autocmd BufEnter,FocusGained,VimEnter,WinEnter * call focus_statusline()
+    "   autocmd FocusLost,WinLeave * call simple_statusline()
+    " endif
+augroup end
 

@@ -15,9 +15,6 @@ endif
 if has("termguicolors")
    set termguicolors
 endif
-"if !has('gui_running')
-"  set t_Co=256
-"endif
 
 " Gruvbox options
 let g:gruvbox_contrast_dark = 'hard'
@@ -27,22 +24,62 @@ set background=dark
 colorscheme gruvbox
 
 set cursorline
-hi CursorLine term=bold cterm=bold guibg=Gray8
-
-if has("statusline") && !&cp
-  set laststatus=2                      " always show the status bar
-  set statusline=%<%1*\ %f\ %0*         " filename
-  set statusline+=\ %m%r                " modified, readonly
-  set statusline+=\ %y                  " filetype
-  set statusline+=\ %{fugitive#head()}
-  set statusline+=%=                    " left-right separation point
-  set statusline+=\ %l/%L[%p%%]         " current line/total lines
-  set statusline+=\ %v[0x%B]            " current column [hex char]
-  " hi User1 ctermfg=0 ctermbg=6
-endif
+highlight CursorLine term=bold cterm=bold guibg=Gray8
+" Highlight 81st column on lines that reached it
+highlight ColorColumn ctermbg=LightGray
+call matchadd('ColorColumn', '\%81v', 100)
 
 " lightline
-let g:lightline = { 'colorscheme': 'gruvbox' }
+let g:lightline = {
+ \ 'colorscheme': 'gruvbox',
+ \ 'active': {
+ \   'left':  [ [ 'mode', 'filename' ],
+ \              [ 'gitbranch' ] ],
+ \   'right': [ [ 'lineinfo' ],
+ \              [ 'percent' ],
+ \              [ 'paste', 'fileformat', 'fileencoding', 'filetype' ] ]
+ \ },
+ \ 'inactive': {
+ \   'left':  [ [ 'filename' ] ],
+ \   'right': [ [ 'filetype' ] ]
+ \ },
+ \ 'component_function': {
+ \   'filename': 'LightlineFilename',
+ \   'readonly': 'LightlineReadonly',
+ \   'gitbranch': 'LightlineGitBranch'
+ \ },
+ \ 'mode_map': {
+ \ 'n' : 'N',
+ \ 'i' : 'I',
+ \ 'R' : 'R',
+ \ 'v' : 'V',
+ \ 'V' : 'VL',
+ \ "\<C-v>": 'VB',
+ \ 'c' : 'C',
+ \ 's' : 'S',
+ \ 'S' : 'SL',
+ \ "\<C-s>": 'SB',
+ \ 't': 'T',
+ \ },
+ \}
+
+function! LightlineGitBranch()
+  if exists('*FugitiveHead')
+    let branch = FugitiveHead()
+    return branch !=# '' ? ' '.branch : ''
+  endif
+  return ''
+endfunction
+
+function! LightlineReadonly()
+  return &readonly && &filetype !~# '\v(help)' ? '' : ' '
+endfunction
+
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' +' : ''
+  return filename . modified
+endfunction
 
 " Tmuxline
 "let g:tmuxline_theme = 'iceberg'
@@ -50,6 +87,7 @@ let g:lightline = { 'colorscheme': 'gruvbox' }
 
 " FZF
 let g:fzf_colors = {
+  \ 'border':  ['fg', 'GruvboxGray'],
   \ 'fg':      ['fg', 'GruvboxGray'],
   \ 'bg':      ['bg', 'GruvboxBg0'],
   \ 'hl':      ['fg', 'GruvboxRed'],
