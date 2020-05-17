@@ -122,11 +122,11 @@ super + {_,shift + }{1-9,0}
 # Mouse resize using super + right mouse click
 
 # Move node
-super + alt + {h,j,k,l}
+super + shift + {h,j,k,l}
 	bspc node -s {west,south,north,east}
 
 # Resize node
-super + shift + {h,j,k,l}
+super + alt + {h,j,k,l}
 	~/.config/bspwm/resize.sh {west,south,north,east}
 
 # Swap current node and biggest local node
