@@ -1,0 +1,120 @@
+# Basic Settings
+set shell      bash
+set shellopts  '-eu'
+set ifs        "\n"
+set info       size
+set dircounts  on
+set wrapscroll on
+set scrolloff  10
+set hidden     on
+set color256   on
+set drawbox    on
+set icons      on
+set ignorecase on
+set incsearch  on
+#set previewer
+set preview    on
+$lf -remote "send $id set previewer $HOME/bin/preview.sh"
+
+# make sure trash folder exists
+%mkdir -p ~/.trash
+# move current file or selected files to trash folder
+# (also see 'man mv' for backup/overwrite options)
+cmd trash %set -f; mv $fx ~/.trash
+
+# compress current file or selected files with tar and gunzip
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar czf $1.tar.gz $1
+    rm -rf $1
+}}
+
+# compress current file or selected files with zip
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+cmd open ${{
+    case $(file --mime-type $f -b) in
+        application/pdf|image/vnd.djvu|application/octet-stream) setsid zathura $fx >/dev/null 2>&1 & ;;
+        text/troff) man ./ $f;;
+        text/*) $EDITOR $fx;;
+        image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
+        image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\)\(_large\)*$" | setsid sxiv -aio 2>/dev/null | lf-select & ;;
+        audio/*) mpv $f ;;
+        video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
+        application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
+        *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+    esac
+}}
+
+# Paste using rsync
+cmd paste &{{
+    load=$(lf -remote 'load')
+    mode=$(echo "$load" | sed -n '1p')
+    list=$(echo "$load" | sed '1d')
+    if [ $mode = 'copy' ]; then
+        rsync -av --ignore-existing --progress $list . \
+        | stdbuf -i0 -o0 -e0 tr '\r' '\n' \
+        | while read line; do
+            lf -remote "send $id echo $line"
+        done
+    elif [ $mode = 'move' ]; then
+        mv -n $list .
+    fi
+    lf -remote 'send load'
+    lf -remote 'send clear'
+}}
+
+
+# Copy & move local without using server
+# map y %cp -ri $fs .
+# map d %mv -i $fs .
+# map p
+
+# use '<delete>' key for either 'trash' or 'delete' command
+# map <delete> trash
+map <delete> delete
+map D delete
+# Open using xdg-open
+map <enter> open
+# Open / open with
+map o &mimeopen $f
+map O $mimeopen --ask $f
+# execute current file (must be executable)
+map xx $$f
+# extract here
+map Xh $extract $f
+# extract in subdir
+map Xs $extract $f
+
+# Image preview
+map - $~/.config/lf/draw-img.sh $f
+# Set wallpaper
+map sw $wallpaper.sh $f
+# Find file with FZF
+map <c-f> $lf -remote "send $id select '$(fzf)'"
+
+# Jump to dirs
+map ge cd /etc
+map gb cd ~/bin
+map gc cd ~/.config
+map gd cd ~/Downloads
+map gD cd ~/Documents
+map gM cd ~/Music
+map gP cd ~/Pictures
+map gV cd ~/Videos
+map gww cd ~/work
+map gwp cd ~/work/proj
+map gwd cd ~/work/docs
+# Jump to network drives
+map gnh cd /media/ca-ops-data/mlangloi
+map gnp cd /media/ca-ops-data/projets
+map gns cd /media/ca-ops-data/shared
+
