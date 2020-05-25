@@ -1,3 +1,0 @@
-
-# Monitor changes in multiple directories
-inotifywait -mr /path/to/dir1 /path/to/dir2

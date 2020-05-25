@@ -1,0 +1,33 @@
+#TMUX key bindings
+
+
+    %    vertical split
+    "    horizontal split
+    !    break pane into new window
+    c    new window
+
+    o    select next pane
+    {    swap pane with previous
+    }    swap pane with next
+    n    next window
+    p    previous window
+    )    next session
+    (    previous session
+    ;    select previously active pane
+    l    select previously active window
+
+    s    interactive session & window browser
+    w    interactive window browser
+
+    $    rename session
+    ,    rename window
+
+    :    command prompt
+    d    detach
+    f    search text in open windows
+
+    [    copy mode
+    ]    paste buffer
+    #    list buffers
+    -    delete buffer
+

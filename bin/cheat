@@ -1,35 +1,58 @@
 #!/bin/sh
+#
+# Hybrid between cheat & tldr
+# Uses:
+# - cheat cmd name
+# - tldr markdown files
+# - FZF fuzzy search
 
-: "${CHEAT_DIR:=$HOME/.config/cheat}"
+: "${CHEAT_DIR:=$HOME/.config/tldr/}"
+: ${CHEATPAGER:="mdless"}
+: ${EDITOR:=vi}
+
+platform() {
+   case $(uname -s) in
+      Darwin)                 echo "osx"    ;;
+      Linux)                  echo "linux"  ;;
+      SunOS)                  echo "sunos"  ;;
+      CYGWIN*|MINGW32*|MSYS*) echo "windows" ;;
+      *)                      echo "common" ;;
+   esac
+}
 
 USAGE="
- cheat          List available cheats
- cheat app      Print cheat for app
- cheat -e app   Edit cheat for app using EDITOR variable
-"
+ cheat              Fuzzy select command cheat to view
+ cheat -e           Fuzzy select command cheat to edit
+ cheat -p platform  Fuzzy select command cheat to edit
+ "
 
-# No args = list available cheat
-[ "$1" ] || { ls $CHEAT_DIR ; exit; }
-op=show
+[ ! -d "$CHEAT_DIR" ] && {
+   base_url="https://raw.githubusercontent.com/tldr-pages/tldr/master/pages"
+   echo "Directory $CHEAT_DIR does not exists."
+   echo "Downloading pages.."
+   #TODO...
+}
+
 while [ "$1" ]; do
    case "$1" in
       -h|--help) echo "$USAGE" ; exit ;;
-      -e) op=edit ;;
-      *) file="$1" ;;
+      -e) edit=yes ;;
+      *) cmd="$1" ;;
    esac
    shift
 done
 
+cheatdir="$CHEAT_DIR"
 
-if [ "$op" = "edit" ]; then
-   [ ! -d "$CHEAT_DIR" ] && mkdir -p $CHEAT_DIR
-   ${EDITOR:-vi} $CHEAT_DIR/$file
-   echo "$CHEAT_DIR/$file"
-else
-   # Use bat if available
-   viewer=$([ "$(which bat)" ] && echo bat || echo ${PAGER:-less})
-   [ -f "$CHEAT_DIR/$file" ] || { echo "Could not find '$file' cheatsheet!"; exit 1; }
-   $viewer "$CHEAT_DIR/$file"
-   echo
-fi
+# No cmd specified: select with FZF
+[ "$cmd" ] || cmd=$(cd $CHEAT_DIR; fzf)
+
+file=${CHEAT_DIR}/${cmd}
+
+[ "$edit" ] && $EDITOR "$file" || {
+   italic=$(   tput sitm   || tput ZH      ) # Start italic
+   eitalic=$(  tput ritm   || tput ZH      ) # End italic
+   sed "s/^\`/  \`/g;s/{{/$italic/g;s/}}/$eitalic/g" "$file" | $CHEATPAGER
+   # $CHEATPAGER "$file"
+}
 
