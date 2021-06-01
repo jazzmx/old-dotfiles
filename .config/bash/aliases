@@ -5,7 +5,9 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias cdroot='cd $(git root)'
 
+alias e="$EDITOR"
 alias ls='ls --color=auto'
 alias ll='ls -alhF'
 alias la='ls -lAh'
@@ -34,7 +36,6 @@ alias notify='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || ech
 # Tmux
 alias tmn='tmux new -s'
 alias tma='tmux a -t'
-alias tm='tmux'
 
 alias wget='wget -c'
 
@@ -56,22 +57,41 @@ alias top='htop'
 alias sudo='sudo '
 
 # Edit config files
-alias vimrc='cd ~/.config/nvim && vi init.vim'
-alias tmuxrc='vi ~/.config/tmux/tmux.conf'
-alias bspwmrc='vi ~/.config/bspwm/bspwmrc'
-alias sxhkd='vi ~/.config/sxhkd/sxhkdrc'
-alias lfrc='vi ~/.config/lf/lfrc'
+alias vimrc='cd ~/.config/nvim && vim init.vim'
+alias tmuxrc='vim ~/.config/tmux/tmux.conf'
+alias bspwmrc='vim ~/.config/bspwm/bspwmrc'
+alias sxhkd='vim ~/.config/sxhkd/sxhkdrc'
+alias lfrc='vim ~/.config/lf/lfrc'
 
 function vix {
-   touch $1; chmod 751 $1; vi $1
+   touch $1; chmod 751 $1; vim $1
+}
+
+alias diff='diff --color -u'
+function vdiff() {
+   if [ "${#}" -ne 2 ] ; then
+      echo "Missing arguments."
+      echo "USage:  vdiff a b"
+      return 1
+   fi
+
+   local left="${1}"
+   local right="${2}"
+
+   if [ -d "${left}" ] && [ -d "${right}" ]; then
+      vim +"DirDiff ${left} ${right}"
+   else
+      vim -d "${left}" "${right}"
+   fi
 }
 
 alias dotf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-alias xipuc='source ~/work/proj/xip3901uc/env/setenv'
-alias xipdc='source ~/work/proj/xip3901dc/env/setenv'
-alias xipfs='source ~/work/proj/xip3901fs/env/setenv'
-alias xipudcip='source ~/work/proj/xip3901udcip/env/setenv'
-alias xipudcs1='source ~/work/proj/xip3901udcs1/env/setenv'
+alias xipuc='source ~/work/proj/xip/uc/env/setenv'
+alias xipdc='source ~/work/proj/xip/dc/env/setenv'
+alias xipfs='source ~/work/proj/xip/fs/env/setenv'
+alias xipudcip='source ~/work/proj/xip/udcip/env/setenv'
+alias xipudcs1='source ~/work/proj/xipu/udcs1/env/setenv'
+alias xipjpegxs='source ~/work/proj/xip/jpegxs/env/setenv'
 alias cpu3='source ~/work/proj/cpueth3/env/setenv'
 

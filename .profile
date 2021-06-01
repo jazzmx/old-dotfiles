@@ -20,7 +20,7 @@ fi
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export TERMINAL=termite
 export BROWSER=firefox
-export EDITOR=vim
+export EDITOR=nvim
 export PAGER='/usr/bin/bat'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export LESS='-isrM -F -X'

@@ -1,8 +1,8 @@
 #!/bin/sh
 
 
-bspc monitor HDMI2 -d I II III IV V
-bspc monitor HDMI3 -d VI VII VIII IX X
+bspc monitor HDMI2 -d 1 2 3 4 5
+bspc monitor HDMI3 -d 6 7 8 9 0
 
 bspc config top_padding    34
 bspc config bottom_padding 0
@@ -29,6 +29,6 @@ bspc config focused_private_border_color "#ebdbb2"
 # Dropdown
 bspc rule -a dropdown sticky=on state=floating hidden=on
 $TERMINAL --class dropdown -e "bash -i" &
-# Ranger
-bspc rule -a ranger sticky=on state=floating hidden=on
-$TERMINAL --class ranger -e "ranger" &
+# File manager
+bspc rule -a filmanager sticky=on state=floating hidden=on
+$TERMINAL --class filemanager -e "lf" &

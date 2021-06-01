@@ -64,14 +64,15 @@ cd $BUILD_DIR
 # tmux
 # lf
 # bat
-# fzf
 # ripgrep
+# fzf
+# git-fuzzy
 # neovim
 # flameshot
 # copyq
-# rclone
 # nerd fonts
-# dterm
+# rclone (google drive)
+# dterm  (serial console)
 # tabbed (suckless)
 
 # tmux
@@ -111,4 +112,11 @@ git clone --depth 1 https://github.com/junegunn/fzf.git
   cd fzf
   ./install
 )
+# git-fzf
+git clone https://github.com/bigH/git-fuzzy.git
+(
+  cd git-fuzzy
+  ln -snf ./bin/git-fuzzy ~/bin/fzg
+)
+
 

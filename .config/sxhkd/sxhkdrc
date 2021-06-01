@@ -15,13 +15,13 @@ super + Return
 super + shift + Return
 	scratchpad dropdown
 
-# Ranger terminal
+# File manager terminal
 super + alt + Return
-	scratchpad ranger
+	scratchpad filemanager
 
 # Web search menu
 super + w
-	$HOME/bin/websearch
+	$HOME/bin/dmenu/websearch
 
 # browser
 super + shift + w
@@ -36,12 +36,12 @@ alt + Tab
 	rofi -modi window -show window -show-icons
 
 # Screen lock
-super + alt + Escape
+super + Escape
 	i3lock -e -f -c 000000 -i .config/wall.png
 
 # Logout/shutdown/reboot
-super + alt + q
-	$HOME/bin/session
+super + alt + Escape
+	$HOME/bin/dmenu/session
 
 # reload sxhkd configuration
 super + alt + c
@@ -63,17 +63,17 @@ super + alt + r
 super + {_,shift + }q
 	bspc node -{c,k}
 
-# Toggle fullscreen
-super + space
-	bspc node focused -t \~fullscreen
-
 # Toggle floating
-super + shift + space
+super + space
 	bspc node focused -t \~floating
 
+# Toggle fullscreen
+super + shift + space
+	bspc node focused -t \~fullscreen
+
 # Toggle sticky
-super + shift + s
-	bspc node -g sticky={on,off}
+super + s
+	bspc node -g sticky
 
 # set the window state
 super + {t,shift + t}
@@ -95,6 +95,9 @@ super + m
 super + {h,j,k,l}
 	bspc node -f {west,south,north,east}
 
+super + {Left,Down,Up,Right}
+	bspc node -f {west,south,north,east}
+
 # focus the next/previous node in the current desktop
 super + bracket{left,right}
 	bspc node -f {prev,next}.local
@@ -104,7 +107,7 @@ super + shift + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-super + shift + {6,Tab}
+super + shift + Tab
 	bspc {node,desktop} -f last
 
 # focus or send to the given desktop
@@ -119,10 +122,10 @@ super + {_,shift + }{1-9,0}
 # Swap / Move / Resize
 #
 
-# Mouse resize using super + right mouse click
-
 # Move node
 super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
+super + shift + {Left,Down,Up,Right}
 	bspc node -s {west,south,north,east}
 
 # Resize node
@@ -140,10 +143,6 @@ super + alt + b
 # send the newest marked node to the newest preselected node
 super + shift + y
 	bspc node newest.marked.local -n newest.!automatic.local
-
-# move a floating window
-super + {Left,Down,Up,Right}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 #
 # preselect

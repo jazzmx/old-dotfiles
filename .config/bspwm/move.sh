@@ -1,8 +1,8 @@
 #!/bin/bash
 # Originally by https://github.com/windelicato/
 
-size=${2:-'20'}
 dir=$1
+size=${2:-'20'}
 
 transplanter() {
 	bspc node ${dir} -p south && bspc node -n ${dir}

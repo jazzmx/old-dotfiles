@@ -1,59 +1,61 @@
 #!/bin/bash
+# Terminal file preview
 
-set -C -f -u
-#IFS=$'\n'
-IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
+path="$1"
+[ -d "$1" ] && { tree $1; exit 1; }
 
-# ANSI color codes are supported.
-# STDIN is disabled, so interactive scripts won't work properly
-
-# This script is considered a configuration file and must be updated manually.
-
-# Meanings of exit codes:
-# code | meaning    | action of ranger
-# -----+------------+-------------------------------------------
-# 0    | success    | Display stdout as preview
-# 1    | no preview | Display no preview at all
-# 2    | plain text | Display the plain content of the file
-
-# Script arguments
-FILE_PATH="${1}"         # Full path of the highlighted file
-HEIGHT="${2}"
-
-#FILE_EXTENSION="${FILE_PATH##*.}"
-#FILE_EXTENSION_LOWER=$(echo ${FILE_EXTENSION} | tr '[:upper:]' '[:lower:]')
-
-# Settings
+# Highlight settings
 HIGHLIGHT_SIZE_MAX=262143  # 256KiB
 HIGHLIGHT_TABWIDTH=8
 HIGHLIGHT_STYLE='pablo'
+BAT_THEME="--theme=gruvbox"
 
-
-handle_mime() {
-    local mimetype="${1}"
-    case "${mimetype}" in
-        text/html) w3m -dump "${FILE_PATH}" ;;
-        text/troff) man ./ "${FILE_PATH}" | col -b ;;
-        text/* | */xml)
-            if [ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]; then
-                exit 2
-            fi
-            if [ "$( tput colors )" -ge 256 ]; then
-                local highlight_format='xterm256'
-            else
-                local highlight_format='ansi'
-            fi
-            highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
-                --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" ;;
-        application/zip) atool --list -- "${FILE_PATH}" ;;
-        image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || exit 1;;
-        video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" || exit 1;;
-        */pdf) pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - ;;
-        *opendocument*) odt2txt "${FILE_PATH}" ;;
-    esac
+handle_extension() {
+   [ "$1" ] || return
+   local ext
+   ext=$(echo ${1##*.} | tr '[:upper:]' '[:lower:]')
+   case $ext in
+      png|jpg|jpeg|mkv|mp4) mediainfo "$1" && exit ;;
+      md) glow -s dark "$1" && exit ;;
+      pdf) pdftotext -l 10 -nopgbrk -q -- "$1" - && exit ;;
+      zip) zipinfo "$1" && exit ;;
+      tar.gz|tgz) tar -ztvf "$1" && exit ;;
+      tar.bz2) tar -jtvf "$1" && exit ;;
+      tar) tar -tvf "$1" && exit ;;
+      rar) unrar l "$1" && exit ;;
+      7z) 7z l "$1" && exit ;;
+      #html|xml) w3m -dump "$1" && exit;;
+      #zsh*|bash*|git*) bat --color=always "$1" && exit ;;
+      *) bat --paging=never --color=always $BAT_THEME "$1" && exit ;;
+      # *) highlight "$1" -O ansi --force && exit ;;
+   esac
 }
 
-MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
-handle_mime "${MIMETYPE}"
-exit 1
+handle_mime() {
+   local mimetype="${1}"
+   case "${mimetype}" in
+      text/html) w3m -dump "${path}" ;;
+      text/troff) man ./ "${path}" | col -b ;;
+      text/* | */xml)
+         if [ "$( stat --printf='%s' -- "${path}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]; then
+            exit 2
+         fi
+         if [ "$(tput colors)" -ge 256 ]; then
+            local highlight_format='xterm256'
+         else
+            local highlight_format='ansi'
+         fi
+         highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
+            --style="${HIGHLIGHT_STYLE}" --force -- "${path}" ;;
+      application/zip) atool --list -- "${path}" ;;
+      # image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${path}" || exit 1;;
+      image/*) mediainfo "${path}" || exit 1;;
+      video/*|audio/*|application/octet-stream) mediainfo "${path}" || exit 1;;
+      *opendocument*) odt2txt "${path}" ;;
+   esac
+}
+
+handle_extension "$path"
+handle_mime "$(file --dereference --brief --mime-type -- "${path}")"
+exit
 

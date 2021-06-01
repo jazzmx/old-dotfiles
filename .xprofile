@@ -3,14 +3,23 @@
 # Setup monitors
 xrandr --output HDMI2 --primary --auto --output HDMI3 --auto --right-of HDMI2
 # Setup keyboard
-setxkbmap -layout us,ca -variant ,multix -option grp:alt_shift_toggle -option ctrl:nocaps
+# See /usr/share/X11/xkb/rules/base.lst for options
+setxkbmap -layout us,ca \
+	  -variant altgr-intl,multix \
+	  -option \
+	  -option ctrl:nocaps \
+	  -option grp_led:caps \
+	  -option grp:alt_shift_toggle \
+	  -option compose:rctrl \
+          -option terminate:ctrl_alt_bkspc
+# Start with num lock on
 numlockx on
-# swap  mouse middle and right buttons
-#xsetroot -cursor_name left_ptr
+# change cursor when over background
+xsetroot -cursor_name left_ptr
 # load xresources
 xrdb -load ~/.Xresources
 # Start barrier daemon for mouse/keyboard sharing
-barriers -f -d INFO --config $HOME/.config/barrier/barrier.conf --enable-crypto &
+tmux new-session -s barrier -d "barriers -f --enable-crypto -d INFO --config $HOME/.config/barrier/barrier.conf"
 # Set background wallpaper
 feh --bg-fill ~/.config/wall.png
 # start other daemons & apps

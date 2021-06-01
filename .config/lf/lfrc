@@ -1,57 +1,57 @@
 # Basic Settings
-set shell      bash
-set shellopts  '-eu'
-set ifs        "\n"
 set info       size
-set dircounts  on
-set wrapscroll on
 set scrolloff  10
-set hidden     on
+set wrapscroll on
+set dircounts  on
+#set hidden     off
 set color256   on
 set drawbox    on
 set icons      on
 set ignorecase on
 set incsearch  on
-#set previewer
 set preview    on
-$lf -remote "send $id set previewer $HOME/bin/preview.sh"
+set previewer  ~/bin/preview.sh
+# set previewer  ~/.config/lf/preview.sh
 
 # make sure trash folder exists
-%mkdir -p ~/.trash
+%mkdir -p ~/.local/share/trash
 # move current file or selected files to trash folder
 # (also see 'man mv' for backup/overwrite options)
-cmd trash %set -f; mv $fx ~/.trash
+cmd trash %set -f; mv $fx ~/.local/share/trash
 
-# compress current file or selected files with tar and gunzip
-cmd tar ${{
-    set -f
-    mkdir $1
-    cp -r $fx $1
-    tar czf $1.tar.gz $1
-    rm -rf $1
-}}
-
-# compress current file or selected files with zip
-cmd zip ${{
-    set -f
-    mkdir $1
-    cp -r $fx $1
-    zip -r $1.zip $1
-    rm -rf $1
-}}
-
+# Open text files in current terminal
 cmd open ${{
     case $(file --mime-type $f -b) in
-        application/pdf|image/vnd.djvu|application/octet-stream) setsid zathura $fx >/dev/null 2>&1 & ;;
-        text/troff) man ./ $f;;
+        text/html) setsid $BROWSER $fx;;
         text/*) $EDITOR $fx;;
-        image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
-        image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\)\(_large\)*$" | setsid sxiv -aio 2>/dev/null | lf-select & ;;
-        audio/*) mpv $f ;;
+        image/*) setsid feh $fx 2>&1 & ;;
+        audio/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
         video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
-        application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
+        application/pdf) setsid zathura $f >/dev/null 2>&1 & ;;
         *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
     esac
+}}
+
+cmd moveto ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    clear; echo "Move to where?"
+    dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/directories | fzf | sed 's|~|$HOME|' )" &&
+    for x in $fx; do
+      eval mv -iv \"$x\" \"$dest\"
+    done &&
+    notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+}}
+
+cmd copyto ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    clear; echo "Copy to where?"
+    dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/directories | fzf | sed 's|~|$HOME|' )" &&
+    for x in $fx; do
+      eval cp -ivr \"$x\" \"$dest\"
+    done &&
+    notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
 # Paste using rsync
@@ -59,6 +59,7 @@ cmd paste &{{
     load=$(lf -remote 'load')
     mode=$(echo "$load" | sed -n '1p')
     list=$(echo "$load" | sed '1d')
+    echo "$list"
     if [ $mode = 'copy' ]; then
         rsync -av --ignore-existing --progress $list . \
         | stdbuf -i0 -o0 -e0 tr '\r' '\n' \
@@ -72,44 +73,97 @@ cmd paste &{{
     lf -remote 'send clear'
 }}
 
+cmd mkd $mkdir -p "$@"
+cmd mkf ${{
+    file=$(basename "$1")
+    dir=$(dirname "$1")
+    mkdir -p "$dir"
+    touch "$@"
+}}
+cmd dup ${{
+    cp -a "$f" "$f.1"
+}}
 
+cmd chmod ${{
+    for file in "$fx"; do
+      chmod "$@" $file
+    done
+}}
+
+
+cmd zip %zip -r "$f" "$f"
+cmd gzip %gzip "$f"
+cmd targz %tar cvzf "$f.tar.gz" "$f"
+
+# Set wallpaper
+cmd setwallpaper $~/bin/wallpaper.sh $f
+
+# Drag & drop using dragon
+cmd dragon %dragon -a -x $fx
+cmd cpdragon %dragdrop cp
+cmd mvdragon %dragdrop mv
+
+#
+# Mappings
+#
+map <esc> quit
+map <c-c> quit
+# open inside / outside / open with
+map <enter> open
+map O $mimeopen --ask $f
+map oo &mimeopen $f
+map oc $$EDITOR ~/.config/lf/lfrc
+# execute
+map X $$f
 # Copy & move local without using server
 # map y %cp -ri $fs .
 # map d %mv -i $fs .
-# map p
+# map p $paste $fs
+# map ch chmod
+map bg setwallpaper
 
-# use '<delete>' key for either 'trash' or 'delete' command
-# map <delete> trash
-map <delete> delete
-map D delete
-# Open using xdg-open
-map <enter> open
-# Open / open with
-map o &mimeopen $f
-map O $mimeopen --ask $f
-# execute current file (must be executable)
-map xx $$f
+### ARCHIVES
+# Create archives
+map az $zip
+map at $targz
+map ag $gzip
 # extract here
-map Xh $extract $f
+map ax $extract $f
 # extract in subdir
-map Xs $extract $f
+map aX $extract $f
 
+# batch rename using vimv
+map br $vimv $fx
 # Image preview
 map - $~/.config/lf/draw-img.sh $f
-# Set wallpaper
-map sw $wallpaper.sh $f
 # Find file with FZF
 map <c-f> $lf -remote "send $id select '$(fzf)'"
 
+# Trash Mappings
+map <delete> trash
+map D delete
+map dd trash
+map tc clear_trash
+map tr restore_trash
+
+# Dragon Mapping
+map dr dragon
+map dm mvdragon
+map dc cpdragon
+map dl dlfile
+
 # Jump to dirs
-map ge cd /etc
+map gB cd /boot
+map gE cd /etc
+map gM cd /media
+map gU cd /usr
 map gb cd ~/bin
 map gc cd ~/.config
 map gd cd ~/Downloads
 map gD cd ~/Documents
-map gM cd ~/Music
-map gP cd ~/Pictures
-map gV cd ~/Videos
+map gp cd ~/Pictures
+map gs cd ~/Pictures/Snapshots
+map gv cd ~/Videos
 map gww cd ~/work
 map gwp cd ~/work/proj
 map gwd cd ~/work/docs
@@ -117,4 +171,3 @@ map gwd cd ~/work/docs
 map gnh cd /media/ca-ops-data/mlangloi
 map gnp cd /media/ca-ops-data/projets
 map gns cd /media/ca-ops-data/shared
-

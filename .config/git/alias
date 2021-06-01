@@ -11,10 +11,10 @@
    ss = status --short --branch
    c  = commit
    cm = commit -m
-   cmu = !git add -u && git commit -m
-   cma = !git add -A && git commit -m
+   cum = !git add -u && git commit -m
+   cam = !git add -A && git commit -m
    co = checkout
-   cb = checkout -b
+   cob = checkout -b
    f = fetch
    ft = fetch --tags
    p  = push
@@ -30,6 +30,7 @@
    vd = difftool
    ls = ls-files
    lsi = ls-files --others --i --exclude-standard
+   root = rev-parse --show-toplevel
 
    amend = commit --amend
    pick = cherry-pick
@@ -46,11 +47,17 @@
    bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
    rm-untracked = "!git fetch --prune && git branch --merged | grep -v master >/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches"
 
-   lg = log --graph --pretty=format:'%C(bold green)%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(yellow)%d%Creset' --abbrev-commit
-   lg1 = !"git lg1-specific --all"
-   lg2 = !"git lg2-specific --all"
-   lg3 = !"git lg3-specific --all"
-   lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
-   lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
-   lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+   lg-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+   lg = !"git lg-specific --all"
+   lgg-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+   lgg = !"git lgg-specific --all"
+   lggg-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+   lggg = !"git lggg-specific --all"
+
+   fzf = "!f() { git-fzf.sh $@ }; f"
+
+   #quick look at all repo
+   lgsa = log --color --date-order --graph --oneline --decorate --simplify-by-decoration --all
+   #extend look at all repo
+   lga  = log --color --date-order --graph --oneline --decorate --all
 

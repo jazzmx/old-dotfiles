@@ -21,9 +21,6 @@
    defaultCommand = :echo && status --short --branch && :echo
    prompt = "\n%d\n%D%c(%b)%w%#"
 
-[include]
-   path = ~/.config/git/alias
-
 [pull]
    rebase = true
 
@@ -36,8 +33,16 @@
    smudge = git-lfs smudge -- %f
    process = git-lfs filter-process
 
+[mergetool "nvim"]
+   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+
 [merge]
-   tool = vimdiff
+   tool = nvim
    ; conflictStyle = diff3
 
 [mergetool]
+   prompt = false
+
+[include]
+   path = ~/.config/git/alias
+

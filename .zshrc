@@ -101,10 +101,8 @@ source ~/.bash_aliases
 
 # Make CapsLock a Ctrl key
 setxkbmap -option ctrl:nocaps
-# Make Ctrl keys an escape key when press alone
-if [ -z "$(pgrep xcape)" ]; then
-   [ "$(which xcape)" ] && xcape -e 'Control_L=Escape'
-fi
 
+# Note use a non-breaking space at the end of the prompt because we can use it as a find pattern to jump back in tmux.
+export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%(?..%F{yellow}%B!%b%f)%F{red}%B%(!.#.$)%b%f "
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
