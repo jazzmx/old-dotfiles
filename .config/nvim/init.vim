@@ -38,9 +38,6 @@ endif
 command! Path :echo expand("%:p") 
 cnoreabbrev path Path
 
-" use_completion = ['coc','nvim-lsp']
-let g:use_completion = 'nvim-lsp'
-
 " wiki.vim
 let g:wiki_root = '~/Documents/wiki'
 let g:wiki_filetypes = ['wiki', 'md']

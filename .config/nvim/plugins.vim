@@ -7,7 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 " THEMES
 " Plug 'tjdevries/colorbuddy.nvim'
 " Plug 'npxbr/gruvbox.nvim'                                             " LUA Gruvbox implementation with treesitter support
-Plug 'gruvbox-community/gruvbox'
+" Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'                                       " Gruvbox implementation with treesitter support
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -19,10 +19,10 @@ Plug 'mhinz/vim-startify'                                             " Fancy vi
 " Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Plug 'romainl/vim-qf'                                                 " Quickfix/location lists enhancements
 Plug 'tpope/vim-repeat'                                               " Enable repeating supported plugin maps with .
-Plug 'tpope/vim-endwise'                                              " wisely add end statements i.e. endif
+" Plug 'tpope/vim-endwise'                                              " wisely add end statements i.e. endif
 Plug 'tpope/vim-surround'                                             " Change/delete/add surrounding (quotes,parentheses...)
 Plug 'tpope/vim-unimpaired'                                           " Pairs of handy bracket mappings
-Plug 'tpope/vim-eunuch'                                               " Helpers for UNIX shell commands
+" Plug 'tpope/vim-eunuch'                                               " Helpers for UNIX shell commands
 Plug 'moll/vim-bbye'                                                  " Close buffers
 Plug 'ptzz/lf.vim'                                                    " Lf floaterm
 Plug 'voldikss/vim-floaterm'                                          " Floating terminal
@@ -44,7 +44,7 @@ Plug 'mhinz/vim-grepper'
 "-----------------------------------------
 " GIT
 Plug 'tpope/vim-fugitive'                                             " A git wrapper
-Plug 'mhinz/vim-signify'                                              " Show diff status in sign column
+" Plug 'mhinz/vim-signify'                                              " Show diff status in sign column
 " Plug 'lewis6991/gitsigns.nvim'                                        " (Lua) signify replacement
 " Plug 'rhysd/git-messenger.vim', { 'on': ['GitMessenger'] }            " Show commit message under cursor
 "-----------------------------------------
@@ -85,16 +85,10 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 " Plug 'benmills/vimux'                                               " Launch tasks in tmux pane
 "-----------------------------------------
 " COMPLETION
-" if g:use_completion ==? 'coc'
-"   " COC
-"   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" elseif g:use_completion ==? 'nvim-lsp'
-  " NVIM-LSP
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/completion-nvim'
-  Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
-  " Plug 'hrsh7th/nvim-compe'
-  " Plug 'folke/lsp-trouble.nvim'
-" endif
+Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
+" Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
+" Plug 'folke/lsp-trouble.nvim'
 
 call plug#end()
