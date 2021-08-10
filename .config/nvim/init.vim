@@ -2,7 +2,7 @@
 " / \__/| \
 " | |\/|| |      Maxime Langlois
 " | |  || |_/\
-" \_/  \|____/   https://github.com/mxlang
+" \_/  \|____/   https://github.com/jazzmx
 "
 " ==========================================
 "
@@ -59,9 +59,10 @@ let g:winresizer_vert_resize = 3
 let g:lf_replace_netrw = 1
 "-----------------------------------------
 " PLUGINS
-"----------------------------------------- 
-source $HOME/.config/nvim/plugins.vim
-" lua require('plugins')
+"-----------------------------------------
+packadd cfilter
+" source $HOME/.config/nvim/plugins.vim
+lua require('plugins')
 "-----------------------------------------
 "-----------------------------------------
 "-----------------------------------------
